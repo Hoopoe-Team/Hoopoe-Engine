@@ -28,6 +28,6 @@ make
 <code>HUTest</code> - binary for run the unit-tests.<br/>
 <a name="building-flags"><h3>Cmake flags</h3></a>
 <code>-DUTEST=bool</code> - build with the unit-tests<br/>
-<code>-DSANDBOX_ONLY=bool</code> - compiling only Sandbox (for /Sandbox/CMakeLists.txt)<br/>
+<code>-DSANDBOX_ONLY=bool</code> - compiling only Sandbox (only for /Sandbox/CMakeLists.txt)<br/>
 <code>-DBUILD_DIR=path</code> - output directory (default: project-source-dir/build)
 
