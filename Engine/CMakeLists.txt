@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.13)
 
 set(ENGINE_PROJECT_NAME HEngine)
-set(BUILD_DIR "build") # default build directory
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${BUILD_DIR})
+#set(BUILD_DIR "build") # default build directory
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
 
 # Create a Engine library
 file(GLOB ENGINE_SOURCES
