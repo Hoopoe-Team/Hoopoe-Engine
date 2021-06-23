@@ -44,7 +44,7 @@ if(UTEST)
     add_subdirectory(${PROJECT_SOURCE_DIR}/Engine/UTest)
 
     # Tests
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${BUILD_DIR}/utests)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/utests)
 
     add_subdirectory(${PROJECT_SOURCE_DIR}/Engine/UTest/test)
     add_subdirectory(${PROJECT_SOURCE_DIR}/Engine/Core/test)
