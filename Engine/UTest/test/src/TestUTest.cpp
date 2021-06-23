@@ -14,16 +14,10 @@ public:
     void run() override 
     {
         test1();
-        test2();
     }
 
 private:
     void test1() 
-    {
-        UTEST_ASSERT(2 * 2 == 5);
-    }
-
-    void test2() 
     {
         UTEST_ASSERT(2 * 2 == 4);
     }

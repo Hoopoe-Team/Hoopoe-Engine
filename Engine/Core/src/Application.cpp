@@ -1,4 +1,4 @@
-#include "../include/Application.h"
+#include "Application.h"
 
 namespace Hoopoe 
 {

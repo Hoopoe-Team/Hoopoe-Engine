@@ -1,4 +1,4 @@
-#include "../include/LogManager.h"
+#include "LogManager.h"
 
 namespace Hoopoe 
 {

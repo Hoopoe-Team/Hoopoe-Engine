@@ -1,7 +1,7 @@
 #ifndef __ENGINE_CORE_ENTRY_H__
 #define __ENGINE_CORE_ENTRY_H__
 
-#include "../include/Application.h"
+#include "Application.h"
 
 extern Hoopoe::Application* Hoopoe::CreateApplication();
 

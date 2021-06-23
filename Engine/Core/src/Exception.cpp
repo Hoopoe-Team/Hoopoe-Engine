@@ -1,4 +1,4 @@
-#include "../include/Exception.h"
+#include "Exception.h"
 
 namespace Hoopoe 
 {
@@ -8,12 +8,12 @@ Exception::Exception(int num, const String& desc, const String& src) :
 {}
 
 Exception::Exception(int num, const String& desc, const String& src, 
-    const char* typ, const char* fil, long lin) :
-        line(lin),
-        typeName(typ),
-        description( desc ),
+    const char* _type, const char* _file, long _line) :
+        line(_line),
+        typeName(_type),
+        description(desc),
         source(src),
-        file(fil)
+        file(_file)
 {
     StringStream ss;
 
@@ -29,12 +29,12 @@ Exception::Exception(int num, const String& desc, const String& src,
     fullDesc = ss.str();
 }
 
-Exception::Exception(const Exception& rhs)
-    : line( rhs.line ), 
-    typeName( rhs.typeName ), 
-    description( rhs.description ), 
-    source( rhs.source ), 
-    file( rhs.file )
+Exception::Exception(const Exception& rhs) : 
+    line(rhs.line), 
+    typeName(rhs.typeName), 
+    description(rhs.description), 
+    source(rhs.source), 
+    file(rhs.file)
 {}
 
-}
+} // Hoopoe
