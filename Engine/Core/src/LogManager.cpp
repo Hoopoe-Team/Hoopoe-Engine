@@ -17,7 +17,7 @@ void LogManager::Init()
     s_ClientLogger->set_level(spdlog::level::trace);
 }
 
-void LogManager::setPattern(const std::string &pattern)
+void LogManager::setPattern(const String &pattern)
 {
     spdlog::set_pattern(pattern);
 }

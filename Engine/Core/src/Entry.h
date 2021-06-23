@@ -11,6 +11,7 @@ int main(int argc, char* argv[])
     HE_CORE_INFO("Logging system initialized!");
 
     auto app = Hoopoe::CreateApplication();
+    HE_EXCEPT(Hoopoe::Exception::ERR_NOT_IMPLEMENTED, "This code does not support to work.", "int main(int argc, char* argv[])");
     app->Run();
     delete app;
 

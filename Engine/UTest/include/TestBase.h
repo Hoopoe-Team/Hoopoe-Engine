@@ -2,15 +2,14 @@
 #define __HOOPOE_ENGINE_TESTBASE_H__
 
 #include <list>
-#include <string>
 
 #include "../../Core/include/LogManager.h"
 
 #define UTEST_ASSERT(x) \
-    std::string message = \
-        std::string("\t - [") + this->getName() + std::string("]: ") + \
-        std::string(__func__) + std::string(" --- ") + \
-        ((x) ? std::string("PASSED.") : std::string("NOT PASSED!")) \
+    String message = \
+        String("\t - [") + this->getName() + String("]: ") + \
+        String(__func__) + String(" --- ") + \
+        ((x) ? String("PASSED.") : String("NOT PASSED!")) \
     ; \
     \
     if(x) { \
@@ -24,14 +23,14 @@ namespace Hoopoe { namespace Test {
 class TestBase 
 {
 public:
-    TestBase(const std::string name) : name(name) {}
+    TestBase(const String name) : name(name) {}
     virtual ~TestBase() {}
 
     virtual void run() = 0;
-    virtual std::string getName() { return this->name; };
+    virtual String getName() { return this->name; };
 
 protected:
-    std::string name;
+    String name;
 };
 
 } // Test

@@ -1,10 +1,12 @@
-#ifndef __HOOPOE_ENGINE_CORE_LOG_H__
-#define __HOOPOE_ENGINE_CORE_LOG_H__
+#ifndef __HOOPOE_ENGINE_CORE_LOGMANAGER_H__
+#define __HOOPOE_ENGINE_CORE_LOGMANAGER_H__
 
 #include <memory>
 
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
+
+#include "Types.h"
 
 namespace Hoopoe 
 {
@@ -14,7 +16,7 @@ class LogManager
 public:
     static void Init();
 
-    static void setPattern(const std::string &pattern);
+    static void setPattern(const String &pattern);
 
     inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
     inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return s_ClientLogger; }

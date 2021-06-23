@@ -2,14 +2,13 @@
 #define __HOOPOE_ENGINE_UTEST_TESTBASE_H__
 
 #include "../../include/TestBase.h"
-#include <string>
 
 namespace Hoopoe { namespace Test {
 
 class TestUTest : public TestBase
 {
 public:
-    TestUTest(const std::string name) : TestBase(name) {}
+    TestUTest(const String name) : TestBase(name) {}
     ~TestUTest() {}
 
     void run() override 

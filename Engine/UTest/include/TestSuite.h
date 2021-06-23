@@ -13,10 +13,10 @@ public:
 
     void add(TestBase *test); 
     void run();
-    std::string getName();
+    String getName();
 
 private:
-    std::string name;
+    String name;
     std::list<TestBase *> tests;
 };
 
@@ -26,7 +26,7 @@ private:
 #define UTEST_BEGIN_SUITE(suiteName) \
 Hoopoe::LogManager::Init(); \
 Hoopoe::LogManager::setPattern("%v%$"); \
-HE_CORE_TRACE(std::string(suiteName) + std::string(": ")); \
+HE_CORE_TRACE(Hoopoe::String(suiteName) + Hoopoe::String(": ")); \
 Hoopoe::Test::TestSuite suite; \
 
 #define UTEST_ADD_TEST(TestClassName) suite.add(new Hoopoe::Test::TestClassName);
