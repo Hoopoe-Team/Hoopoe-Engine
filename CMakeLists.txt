@@ -29,6 +29,7 @@ add_compile_options(
 # --------------------- Include paths --------------------- #
 
 include_directories(${PROJECT_SOURCE_DIR}/Engine/vendor/spdlog/include)
+include_directories(${PROJECT_SOURCE_DIR}/Engine/Core/include)
 include_directories(${PROJECT_SOURCE_DIR}/Engine)
 
 # --------------------- Sub-projects ---------------------- #
@@ -46,5 +47,6 @@ if(UTEST)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${BUILD_DIR}/utests)
 
     add_subdirectory(${PROJECT_SOURCE_DIR}/Engine/UTest/test)
+    add_subdirectory(${PROJECT_SOURCE_DIR}/Engine/Core/test)
     
 endif()
