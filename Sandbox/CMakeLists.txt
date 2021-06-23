@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.13)
 
-set(BUILD_DIR "build") # default build directory
+#set(BUILD_DIR "build") # default build directory
 set(SANDBOX_PROJECT_NAME HSandbox)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/${BUILD_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf -lsqlite3")
 
@@ -23,7 +23,7 @@ if(SANDBOX_ONLY)
     add_library(HEngine SHARED IMPORTED)
     set_property(TARGET HEngine PROPERTY
         IMPORTED_LOCATION 
-            ${PROJECT_SOURCE_DIR}/${BUILD_DIR}/libHEngine.so          
+            ${PROJECT_BINARY_DIR}/libHEngine.so          
     )
 endif()
 
