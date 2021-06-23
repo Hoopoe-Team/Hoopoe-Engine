@@ -121,6 +121,15 @@ public:
 
 class ExceptionFactory
 {
+public:
+    static void throwException(
+        Exception::ExceptionCodes code,
+        const String& desc,
+        const String& src, const char* file, long line)
+    {
+        _throwException(code, code, desc, src, file, line);
+    }
+
 private:
     /// Private constructor, no construction
     ExceptionFactory() {}
@@ -143,14 +152,6 @@ private:
         case Exception::ERR_INVALID_CALL:           throw InvalidCallException(number, desc, src, file, line);
         default:                                    throw Exception(number, desc, src, "Exception", file, line);
         }
-    }
-public:
-    static void throwException(
-        Exception::ExceptionCodes code,
-        const String& desc,
-        const String& src, const char* file, long line)
-    {
-        _throwException(code, code, desc, src, file, line);
     }
 };
 
