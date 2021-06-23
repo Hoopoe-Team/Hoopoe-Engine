@@ -47,8 +47,6 @@ protected:
     String source;
     const char* file;
     String fullDesc; // storage for char* returned by what()
-private:
-
 };
 
 class UnimplementedException : public Exception 
