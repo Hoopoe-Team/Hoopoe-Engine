@@ -29,9 +29,10 @@ int main(int argc, char* argv[])
         else
         {
             std::cout << "Failed to open utests directory.\n";
+            return 0;
         }
         
-        closedir(dir)
+        closedir(dir);
     }
 
     return 0;
