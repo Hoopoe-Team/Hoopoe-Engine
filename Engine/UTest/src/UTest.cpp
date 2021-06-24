@@ -30,6 +30,8 @@ int main(int argc, char* argv[])
         {
             std::cout << "Failed to open utests directory.\n";
         }
+        
+        closedir(dir)
     }
 
     return 0;
