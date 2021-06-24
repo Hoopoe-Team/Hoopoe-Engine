@@ -6,8 +6,6 @@
 class Sandbox : public Hoopoe::Application {
 public:
     Sandbox() {
-        test_sqlite();
-
         Hoopoe::Graphics game;
 
         SDL_Texture *background = game.loadTexture("../Sandbox/Game/resources/sprites/background.png");
