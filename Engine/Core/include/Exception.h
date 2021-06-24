@@ -2,6 +2,7 @@
 #define __HOOPOE_ENGINE_CORE_EXCEPTION_H__
 
 #include <exception>
+#include <cassert>
 
 #include "Types.h"
 
@@ -158,11 +159,13 @@ private:
 }
 
 #ifndef HE_EXCEPT
-#define HE_EXCEPT_3(code, desc, src)  Hoopoe::ExceptionFactory::throwException(code, desc, src, __FILE__, __LINE__)
-#define HE_EXCEPT_2(code, desc)       Hoopoe::ExceptionFactory::throwException(code, desc, __FUNCTION__, __FILE__, __LINE__)
-#define HE_EXCEPT_CHOOSER(arg1, arg2, arg3, arg4, ...) arg4
-#define HE_EXPAND(x) x // MSVC workaround
-#define HE_EXCEPT(...) HE_EXPAND(HE_EXCEPT_CHOOSER(__VA_ARGS__, HE_EXCEPT_3, HE_EXCEPT_2)(__VA_ARGS__))
+    #define HE_EXCEPT_3(code, desc, src)  Hoopoe::ExceptionFactory::throwException(code, desc, src, __FILE__, __LINE__)
+    #define HE_EXCEPT_2(code, desc)       Hoopoe::ExceptionFactory::throwException(code, desc, __FUNCTION__, __FILE__, __LINE__)
+    #define HE_EXCEPT_CHOOSER(arg1, arg2, arg3, arg4, ...) arg4
+    #define HE_EXPAND(x) x // MSVC workaround
+    #define HE_EXCEPT(...) HE_EXPAND(HE_EXCEPT_CHOOSER(__VA_ARGS__, HE_EXCEPT_3, HE_EXCEPT_2)(__VA_ARGS__))
 #endif
+
+#define HE_ASSERT(exp, msg) if(!(exp)) HE_EXCEPT_2(Hoopoe::Exception::ERR_RT_ASSERTION_FAILED, (#exp " failed. " msg))
 
 #endif

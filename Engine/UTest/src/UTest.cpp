@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
             std::cout << "Failed to open utests directory.\n";
             return 0;
         }
-        
+
         closedir(dir);
     }
 

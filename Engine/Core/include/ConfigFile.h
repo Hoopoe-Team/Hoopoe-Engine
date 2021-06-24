@@ -2,11 +2,11 @@
 #define __HOOPOE_ENGINE_CORE_CONFIGFILE_H__
 
 #include <map>
-
 #include <fstream>
 
-#include "Types.h"
-#include "Exception.h"
+#include "CoreHeaders.h"
+#include "DataStream.h"
+#include "FileSystem.h"
 #include "ResourceManager.h"
 
 namespace Hoopoe
@@ -14,20 +14,21 @@ namespace Hoopoe
 
 typedef std::map<String, String> SettingsMap;
 
-class ConfigFile
+class ConfigFile : public ConfigAlloc
 {
 public:
     ConfigFile();
 
     void load(const String& filename, const String& separators = "\t:=", bool trimWhiteSpace = true)
     {
-        String stream = ResourceManager::syncFileRead(filename);
+        
+        DataStreamPtr stream = FileSystem::openFileStream(filename, std::ios::in | std::ios::binary), separators, trimWhitespace);
 
         /* Process the file line for line */
         String line, optName, optVal;
-        while (!stream.eof())
+        while (!stream->eof())
         {
-            line = stream.getLine();
+            line = stream->getLine();
 
             /* Ignore comments & blanks */
             if (line.length() > 0 && line.at(0) != '#' && line.at(0) != '@')

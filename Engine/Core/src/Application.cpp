@@ -8,4 +8,4 @@ Application::~Application() {}
 
 void Application::Run() {}
 
-}
+} // Hoopoe

@@ -6,12 +6,12 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 
-#include "Types.h"
+#include "CoreHeaders.h"
 
 namespace Hoopoe 
 {
 
-class LogManager
+class LogManager : public LogAlloc
 {
 public:
     static void Init();

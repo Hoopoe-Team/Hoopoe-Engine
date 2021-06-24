@@ -1,5 +1,5 @@
-#ifndef __HOOPOE_ENGINE_CORE_CONFIG_H__
-#define __HOOPOE_ENGINE_CORE_CONFIG_H__
+#ifndef __HOOPOE_ENGINE_CORE_CONFIGOPTION_H__
+#define __HOOPOE_ENGINE_CORE_CONFIGOPTION_H__
 
 #include <map>
 
@@ -19,4 +19,4 @@ namespace Hoopoe
 
 } // Hoopoe
 
-#endif // __HOOPOE_ENGINE_CORE_CONFIG_H__
+#endif // __HOOPOE_ENGINE_CORE_CONFIGOPTION_H__

@@ -1,10 +1,12 @@
-#ifndef __ENGINE_CORE_APPLICATION_H__
-#define __ENGINE_CORE_APPLICATION_H__
+#ifndef __HOOPOE_ENGINE_CORE_APPLICATION_H__
+#define __HOOPOE_ENGINE_CORE_APPLICATION_H__
+
+#include "Memory.h"
 
 namespace Hoopoe 
 {
 
-class Application
+class Application : public AppicationAlloc
 {
 public:
     Application();
@@ -15,6 +17,6 @@ public:
 
 Application *CreateApplication();
     
-}
+} // Hoopoe
 
-#endif
+#endif // __HOOPOE_ENGINE_CORE_APPLICATION_H__
