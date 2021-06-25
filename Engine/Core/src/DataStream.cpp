@@ -45,7 +45,7 @@ String DataStream::getLine(bool trimAfter)
 
     if (trimAfter)
     {
-        StringUtil::trim(retString);
+        Utils::String::trim(retString);
     }
 
     return retString;

@@ -40,8 +40,8 @@ void ConfigFile::load(const String& filename, const String& separators, bool tri
                     optVal = (nonseparator_pos == String::npos) ? "" : line.substr(nonseparator_pos);
                     if (trimWhiteSpace)
                     {
-                        StringUtil::trim(optVal);
-                        StringUtil::trim(optName);
+                        Utils::String::trim(optVal);
+                        Utils::String::trim(optName);
                     }
 
                     mSettings.emplace(optName, optVal);

@@ -11,6 +11,8 @@
 #include "CoreHeaders.h"
 #include "LogManager.h"
 
+#include "../../Utils/include/String.h"
+
 namespace Hoopoe
 {
 
@@ -59,7 +61,7 @@ public:
     virtual bool eof(void) const = 0;
     size_t size(void) const { return mSize; }
     virtual void close(void) = 0;
-    
+
 protected:
     enum AccessMode
     {

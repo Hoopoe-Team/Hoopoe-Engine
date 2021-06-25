@@ -10,6 +10,7 @@ configure_file(Core/resources/hoopoe.cfg ${PROJECT_BINARY_DIR}/hoopoe.cfg COPYON
 file(GLOB ENGINE_SOURCES
     "Core/src/*.cpp"
     "Renderer/src/*.cpp"
+    "Utils/src/*.cpp"
 )
 
 add_library(${ENGINE_PROJECT_NAME} SHARED ${ENGINE_SOURCES})

@@ -8,6 +8,8 @@
 #include "DataStream.h"
 #include "FileSystem.h"
 
+#include "../../Utils/include/String.h"
+
 namespace Hoopoe
 {
 
