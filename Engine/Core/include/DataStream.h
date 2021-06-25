@@ -59,6 +59,7 @@ public:
     virtual bool eof(void) const = 0;
     size_t size(void) const { return mSize; }
     virtual void close(void) = 0;
+    
 protected:
     enum AccessMode
     {
@@ -113,6 +114,7 @@ public:
     size_t tell(void) const;
     bool eof(void) const;
     void close(void);
+
 private:  
     std::istream* mInStream;    // Reference to source stream (read)
     std::ifstream* mFStreamRO;  // Reference to source file stream (read-only)
