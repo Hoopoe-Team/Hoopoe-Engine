@@ -24,7 +24,7 @@ String DataStream::getLine(bool trimAfter)
         if (p != 0)
         {
             // Reposition backwards
-            skip((long)(p + 1 - tmpBuf - readCount));
+            skip(static_cast<long>((p + 1 - tmpBuf - readCount)));
             *p = '\0';
         }
 
@@ -61,7 +61,7 @@ size_t DataStream::readLine(char* buf, size_t maxCount, const String& delim)
     }
 
     char tmpBuf[HOOPOE_STREAM_TEMP_SIZE];
-    size_t chunkSize = std::min(maxCount, (size_t)HOOPOE_STREAM_TEMP_SIZE-1);
+    size_t chunkSize = std::min(maxCount, static_cast<size_t>(HOOPOE_STREAM_TEMP_SIZE)-1);
     size_t totalCount = 0;
     size_t readCount; 
     while (chunkSize && (readCount = read(tmpBuf, chunkSize)) != 0)
@@ -75,7 +75,7 @@ size_t DataStream::readLine(char* buf, size_t maxCount, const String& delim)
         if (pos < readCount)
         {
             // Found terminator, reposition backwards
-            skip((long)(pos + 1 - readCount));
+            skip(static_cast<long>((pos + 1 - readCount)));
         }
 
         // Are we genuinely copying?
@@ -98,7 +98,7 @@ size_t DataStream::readLine(char* buf, size_t maxCount, const String& delim)
         }
 
         // Adjust chunkSize for next time
-        chunkSize = std::min(maxCount-totalCount, (size_t)HOOPOE_STREAM_TEMP_SIZE-1);
+        chunkSize = std::min(maxCount-totalCount, static_cast<size_t>(HOOPOE_STREAM_TEMP_SIZE)-1);
     }
 
     // Terminate
@@ -125,7 +125,7 @@ size_t DataStream::skipLine(const String& delim)
         if (pos < readCount)
         {
             // Found terminator, reposition backwards
-            skip((long)(pos + 1 - readCount));
+            skip(static_cast<long>(pos + 1 - readCount));
 
             total += pos + 1;
 
@@ -145,6 +145,7 @@ String DataStream::getAsString()
     // the buffer is unknown, do multiple fixed size reads.
     size_t bufSize = (mSize > 0 ? mSize : 4096);
     char* pBuf = HE_ALLOC_T(char, bufSize);
+
     // Ensure read from begin of stream
     seek(0);
     String result;
@@ -153,6 +154,7 @@ String DataStream::getAsString()
         size_t nr = read(pBuf, bufSize);
         result.append(pBuf, nr);
     }
+
     HE_FREE(pBuf);
     return result;
 }
@@ -163,7 +165,7 @@ FileStream::FileStream(std::ifstream* s, bool freeOnClose)
 {
     // calculate the size
     mInStream->seekg(0, std::ios_base::end);
-    mSize = (size_t)mInStream->tellg();
+    mSize = static_cast<size_t>(mInStream->tellg());
     mInStream->seekg(0, std::ios_base::beg);
     determineAccess();
 }
@@ -174,7 +176,7 @@ FileStream::FileStream(const String& name,
 {
     // calculate the size
     mInStream->seekg(0, std::ios_base::end);
-    mSize = (size_t)mInStream->tellg();
+    mSize = static_cast<size_t>(mInStream->tellg());
     mInStream->seekg(0, std::ios_base::beg);
     determineAccess();
 }
@@ -194,7 +196,7 @@ FileStream::FileStream(std::fstream* s, bool freeOnClose)
     // writeable!
     // calculate the size
     mInStream->seekg(0, std::ios_base::end);
-    mSize = (size_t)mInStream->tellg();
+    mSize = static_cast<size_t>(mInStream->tellg());
     mInStream->seekg(0, std::ios_base::beg);
     determineAccess();
 
@@ -207,7 +209,7 @@ FileStream::FileStream(const String& name,
     // writeable!
     // calculate the size
     mInStream->seekg(0, std::ios_base::end);
-    mSize = (size_t)mInStream->tellg();
+    mSize = static_cast<size_t>(mInStream->tellg());
     mInStream->seekg(0, std::ios_base::beg);
     determineAccess();
 }
@@ -239,7 +241,7 @@ FileStream::~FileStream()
 size_t FileStream::read(void* buf, size_t count)
 {
     mInStream->read(static_cast<char*>(buf), static_cast<std::streamsize>(count));
-    return (size_t)mInStream->gcount();
+    return static_cast<size_t>(mInStream->gcount());
 }
 
 size_t FileStream::write(const void* buf, size_t count)
@@ -272,7 +274,7 @@ size_t FileStream::readLine(char* buf, size_t maxCount, const String& delim)
     }
     // maxCount + 1 since count excludes terminator in getline
     mInStream->getline(buf, static_cast<std::streamsize>(maxCount+1), delim.at(0));
-    size_t ret = (size_t)mInStream->gcount();
+    size_t ret = static_cast<size_t>(mInStream->gcount());
 
     if (mInStream->eof()) 
     {
@@ -312,24 +314,24 @@ void FileStream::skip(long count)
     mInStream->seekg(static_cast<std::ifstream::pos_type>(count), std::ios::cur);
 }
 
-void FileStream::seek( size_t pos )
+void FileStream::seek(size_t pos)
 {
     mInStream->clear(); //Clear fail status in case eof was set
     mInStream->seekg(static_cast<std::streamoff>(pos), std::ios::beg);
 }
 
-size_t FileStream::tell(void) const
+size_t FileStream::tell() const
 {
     mInStream->clear(); //Clear fail status in case eof was set
-    return (size_t)mInStream->tellg();
+    return static_cast<size_t>(mInStream->tellg());
 }
 
-bool FileStream::eof(void) const
+bool FileStream::eof() const
 {
     return mInStream->eof();
 }
 
-void FileStream::close(void)
+void FileStream::close()
 {
     mAccess = 0;
     if (mInStream)
