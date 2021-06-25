@@ -4,6 +4,8 @@ set(ENGINE_PROJECT_NAME HEngine)
 #set(BUILD_DIR "build") # default build directory
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
 
+configure_file(Core/resources/hoopoe.cfg ${PROJECT_BINARY_DIR}/hoopoe.cfg COPYONLY)
+
 # Create a Engine library
 file(GLOB ENGINE_SOURCES
     "Core/src/*.cpp"
