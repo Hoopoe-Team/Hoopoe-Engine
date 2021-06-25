@@ -30,6 +30,7 @@ add_compile_options(
 
 include_directories(${PROJECT_SOURCE_DIR}/Engine/vendor/spdlog/include)
 include_directories(${PROJECT_SOURCE_DIR}/Engine/Core/include)
+include_directories(${PROJECT_SOURCE_DIR}/Engine/Utils/include)
 include_directories(${PROJECT_SOURCE_DIR}/Engine)
 
 # --------------------- Sub-projects ---------------------- #
