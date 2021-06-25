@@ -8,7 +8,11 @@ extern Hoopoe::Application* Hoopoe::CreateApplication();
 int main(int argc, char* argv[]) 
 {
     Hoopoe::LogManager::Init();
-    HE_CORE_INFO("Logging system initialized!");
+    HE_CORE_INFO("Logging system initialized.");
+    Hoopoe::ConfigFile engineCfg("hoopoe.cfg");
+    HE_CORE_INFO("hoopoe.cfg loaded.");
+
+    HE_CORE_INFO("All subsystems of Hoopoe Engine ver." + engineCfg.getSetting("engine_version", "0") + " were initialized!");
 
     auto app = Hoopoe::CreateApplication();
     HE_EXCEPT(Hoopoe::Exception::ERR_NOT_IMPLEMENTED, "This code does not support to work.", "int main(int argc, char* argv[])");
