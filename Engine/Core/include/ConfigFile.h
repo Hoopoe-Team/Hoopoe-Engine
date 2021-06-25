@@ -29,4 +29,4 @@ private:
 
 } // Hoopoe
 
-#endif // __HOOPOE_ENGINE_CORE_CONFIG_H__
+#endif // __HOOPOE_ENGINE_CORE_CONFIGFILE_H__
