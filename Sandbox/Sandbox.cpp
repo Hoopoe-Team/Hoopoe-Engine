@@ -13,7 +13,7 @@ public:
         game.renderBackground(background);
         SDL_RenderPresent(game.get_renderer());
 
-        SDL_Delay(5000);
+        SDL_Delay(1000);
 
         SDL_DestroyTexture(background);
     }
