@@ -43,11 +43,16 @@ void LogManager::configure(const ConfigFile &config)
 
     if(allowFileLogging)
     {
+        // Set the file name 
         String coreLogFileName = String("logs/") + config.getSetting("log_core_file_name", "Log Manager", "EngineLog.txt");
         String clientLogFileName = String("logs/") + config.getSetting("log_client_file_name", "Log Manager", "SandboxLog.txt");
 
-        CoreSinks.push_back(std::make_shared<spdlog::sinks::rotating_file_sink_mt>(coreLogFileName, 1024*1024, 5, false));
-        ClientSinks.push_back(std::make_shared<spdlog::sinks::rotating_file_sink_mt>(clientLogFileName, 1024*1024, 5, false));
+        // Set the maximum file size 
+        int coreFileMaxSize = std::stoi(config.getSetting("log_core_file_max_size", "Log Manager", "1048576"));
+        int clientFileMaxSize = std::stoi(config.getSetting("log_client_file_max_size", "Log Manager", "1048576"));
+
+        CoreSinks.push_back(std::make_shared<spdlog::sinks::rotating_file_sink_mt>(coreLogFileName, coreFileMaxSize, 5, false));
+        ClientSinks.push_back(std::make_shared<spdlog::sinks::rotating_file_sink_mt>(clientLogFileName, clientFileMaxSize, 5, false));
     }
 
     CoreLogger = std::make_shared<spdlog::logger>("HOOPOE", begin(CoreSinks), end(CoreSinks));
