@@ -22,4 +22,4 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-#endif
+#endif // __ENGINE_CORE_ENTRY_H__

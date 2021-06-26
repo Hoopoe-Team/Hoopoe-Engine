@@ -6,7 +6,7 @@
 
 #include "Types.h"
 
-namespace Hoopoe 
+namespace Hoopoe
 {
 
 class Exception : public std::exception 
@@ -48,77 +48,77 @@ protected:
     String source;
     const char* file;
     String fullDesc; // storage for char* returned by what()
-};
+}; // Exception
 
 class UnimplementedException : public Exception 
 {
 public:
     UnimplementedException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
         : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
-};
+}; // UnimplementedException
 
 class FileNotFoundException : public Exception
 {
 public:
     FileNotFoundException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
         : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
-};
+}; // FileNotFoundException
 
 class IOException : public Exception
 {
 public:
     IOException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
         : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
-};
+}; // IOException
 
 class InvalidStateException : public Exception
 {
 public:
     InvalidStateException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
         : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
-};
+}; // InvalidStateException
 
 class InvalidParametersException : public Exception
 {
 public:
     InvalidParametersException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
         : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
-};
+}; // InvalidParametersException
 
 class ItemIdentityException : public Exception
 {
 public:
     ItemIdentityException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
         : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
-};
+}; // ItemIdentityException
 
 class InternalErrorException : public Exception
 {
 public:
     InternalErrorException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
         : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
-};
+}; // InternalErrorException
 
 class RenderingAPIException : public Exception
 {
 public:
     RenderingAPIException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
         : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
-};
+}; // RenderingAPIException
 
 class RuntimeAssertionException : public Exception
 {
 public:
     RuntimeAssertionException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
         : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
-};
+}; // RuntimeAssertionException
 
 class InvalidCallException : public Exception
 {
 public:
     InvalidCallException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
         : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
-};
+}; // InvalidCallException
 
 class ExceptionFactory
 {
@@ -154,9 +154,9 @@ private:
         default:                                    throw Exception(number, desc, src, "Exception", file, line);
         }
     }
-};
+}; // ExceptionFactory
 
-}
+} // Hoopoe
 
 #ifndef HE_EXCEPT
     #define HE_EXCEPT_3(code, desc, src)  Hoopoe::ExceptionFactory::throwException(code, desc, src, __FILE__, __LINE__)

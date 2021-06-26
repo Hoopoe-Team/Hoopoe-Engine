@@ -22,4 +22,4 @@ void LogManager::setPattern(const String &pattern)
     spdlog::set_pattern(pattern);
 }
 
-}
+} // Hoopoe

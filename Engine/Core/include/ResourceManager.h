@@ -16,8 +16,8 @@ public:
     
 private:
 
-};
+}; // ResourceManager
 
-}
+} // Hoopoe
 
-#endif
+#endif // __HOOPOE_ENGINE_CORE_RESOURCEMANAGER_H__

@@ -24,9 +24,9 @@ public:
 private:
     static std::shared_ptr<spdlog::logger> s_CoreLogger;
     static std::shared_ptr<spdlog::logger> s_ClientLogger;
-};
+}; // LogManager
 
-}
+} // Hoopoe
 
 #define HE_CORE_TRACE(...) ::Hoopoe::LogManager::GetCoreLogger()->trace(__VA_ARGS__)
 #define HE_CORE_INFO(...) ::Hoopoe::LogManager::GetCoreLogger()->info(__VA_ARGS__)
@@ -40,4 +40,4 @@ private:
 #define HE_CLIENT_ERROR(...) ::Hoopoe::LogManager::GetClientLogger()->error(__VA_ARGS__)
 #define HE_CLIENT_CRITICAL(...) ::Hoopoe::LogManager::GetClientLogger()->critical(__VA_ARGS__)
 
-#endif
+#endif // __HOOPOE_ENGINE_CORE_LOGMANAGER_H__

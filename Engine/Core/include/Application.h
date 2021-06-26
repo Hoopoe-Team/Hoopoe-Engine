@@ -13,7 +13,7 @@ public:
     virtual ~Application();
 
     void Run();
-};
+}; // Application
 
 Application *CreateApplication();
     
