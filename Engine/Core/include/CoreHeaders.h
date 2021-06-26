@@ -1,6 +1,8 @@
 #ifndef __HOOPOE_ENGINE_CORE_COREHEADERS_H__
 #define __HOOPOE_ENGINE_CORE_COREHEADERS_H__
 
+#include "CorePrerequisites.h"
+
 #include "Types.h"
 #include "Exception.h"
 #include "SharedPtr.h"

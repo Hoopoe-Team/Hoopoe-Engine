@@ -77,7 +77,6 @@ protected:
 }; // DataStream
 
 typedef SharedPtr<DataStream> DataStreamPtr;
-typedef std::list<DataStreamPtr> DataStreamList;
 
 class FileStream : public DataStream
 {
