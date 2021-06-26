@@ -12,6 +12,9 @@ void ConfigFile::load(const String& filename, const String& separators, bool tri
 {
     DataStreamPtr stream = FileSystem::openFileStream(filename, std::ios::in | std::ios::binary);
 
+    String currentSection = HE_BLANK_CONFIG_SECTION;
+    SettingsMultiMap* currentSettings = &mSettings[currentSection];
+
     /* Process the file line for line */
     String line, optName, optVal;
     while (!stream->eof())
@@ -23,7 +26,9 @@ void ConfigFile::load(const String& filename, const String& separators, bool tri
         {
             if (line.at(0) == '[' && line.at(line.length()-1) == ']')
             {
-                // TODO: Options by sections
+                // Sections
+                currentSection = line.substr(1, line.length() - 2);
+                currentSettings = &mSettings[currentSection];
             }
             else
             {
@@ -44,27 +49,52 @@ void ConfigFile::load(const String& filename, const String& separators, bool tri
                         Utils::String::trim(optName);
                     }
 
-                    mSettings.emplace(optName, optVal);
+                    currentSettings->emplace(optName, optVal);
                 }
             }
         }
     }
 }
 
-const String& ConfigFile::getSetting(const String& key, const String& defaultValue)
+const String& ConfigFile::getSetting(const String& key, const String& section, const String& defaultValue) const
 {
-    SettingsMap::const_iterator i = mSettings.find(key);
-    if (i == mSettings.end()) 
+
+    if(section == HE_ALL_CONFIG_SECTIONS) 
     {
+        for(const auto &currentSection : mSettings)
+        {
+            SettingsMultiMap::const_iterator i = currentSection.second.find(key);
+            if (i != currentSection.second.end()) 
+            {
+                return i->second;
+            } 
+        }
+
         return defaultValue;
-    } 
-    else 
+    }
+    else
     {
-        return i->second;
+        SettingsBySection::const_iterator seci = mSettings.find(section);
+        if (seci == mSettings.end())
+        {
+            return defaultValue;
+        }
+        else
+        {
+            SettingsMultiMap::const_iterator i = seci->second.find(key);
+            if (i == seci->second.end()) 
+            {
+                return defaultValue;
+            } 
+            else 
+            {
+                return i->second;
+            }
+        }
     }
 }
 
-const SettingsMap& ConfigFile::getSettings()
+const SettingsBySection& ConfigFile::getSettingsBySection()
 {
     return mSettings;
 }

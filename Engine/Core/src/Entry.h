@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
     Hoopoe::ConfigFile engineCfg("hoopoe.cfg");
     HE_CORE_INFO("hoopoe.cfg loaded.");
 
-    HE_CORE_INFO("All subsystems of Hoopoe Engine ver." + engineCfg.getSetting("engine_version", "0") + " were initialized!");
+    HE_CORE_INFO("All subsystems of Hoopoe Engine ver." + engineCfg.getSetting("engine_version", "General", "0") + " were initialized!");
 
     auto app = Hoopoe::CreateApplication();
     HE_EXCEPT(Hoopoe::Exception::ERR_NOT_IMPLEMENTED, "This code does not support to work.", "int main(int argc, char* argv[])");
