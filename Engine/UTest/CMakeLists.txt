@@ -9,8 +9,10 @@ add_executable(HUTest ${UTEST_SOURCES})
 
 # UTest lib
 file(GLOB UTEST_LIB_SOURCES
-    "../Core/src/LogManager.cpp"
+    "../Core/src/*.cpp"
+    "../Utils/src/*.cpp"
     "src/TestSuite.cpp"
+    "src/TestReporter.cpp"
 )
 
 add_library(UTest SHARED ${UTEST_LIB_SOURCES})

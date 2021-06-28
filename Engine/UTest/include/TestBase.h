@@ -1,21 +1,15 @@
 #ifndef __HOOPOE_ENGINE_TESTBASE_H__
 #define __HOOPOE_ENGINE_TESTBASE_H__
 
-#include <list>
-
 #include "../../Core/include/LogManager.h"
 
+#include "TestReporter.h"
+
 #define UTEST_ASSERT(x) \
-    String message = \
-        String("\t - [") + this->getName() + String("]: ") + \
-        String(__func__) + String(" --- ") + \
-        ((x) ? String("PASSED.") : String("NOT PASSED!")) \
-    ; \
-    \
     if(x) { \
-        HE_CORE_INFO(message); \
+        reporter->saveResult(this->getName(), __func__, true); \
     } else { \
-        HE_CORE_CRITICAL(message); \
+        reporter->saveResult(this->getName(), __func__, false); \
     } \
 
 namespace Hoopoe { namespace Test {
@@ -27,10 +21,12 @@ public:
     virtual ~TestBase() {}
 
     virtual void run() = 0;
+    virtual void setReporter(TestReporter *reporter) { this->reporter = reporter; }
     virtual String getName() { return this->name; };
 
 protected:
     String name;
+    TestReporter *reporter;
 };
 
 } // Test

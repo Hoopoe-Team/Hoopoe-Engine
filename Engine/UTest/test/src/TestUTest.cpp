@@ -21,7 +21,6 @@ private:
     {
         UTEST_ASSERT(2 * 2 == 4);
     }
-
 };
 
 } // Test
