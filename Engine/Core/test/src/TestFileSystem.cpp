@@ -56,7 +56,7 @@ void TestFileSystem::testDeleteEmptyFolder()
 
 void TestFileSystem::testDeleteFolderContents()
 {
-    UTEST_ASSERT(FileSystem::deleteFolderContents(FileSystem::getFullPath("utests/resources/tesDelDirWithContents")));
+    UTEST_ASSERT(FileSystem::deleteFolderContents(FileSystem::getFullPath("utests/resources/testDelDirContents")));
 }
 
 void TestFileSystem::testDeleteFolderAndContents()
