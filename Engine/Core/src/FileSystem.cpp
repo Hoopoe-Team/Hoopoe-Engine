@@ -1,5 +1,7 @@
 #include "FileSystem.h"
 
+#define HOOPOE_MAX_DIR_FILES_REMOVE 64
+
 namespace Hoopoe
 {
 
@@ -106,12 +108,23 @@ bool FileSystem::deleteEmptyFolder(const String &folderPath)
 
 bool FileSystem::deleteFolderContents(const String &folderPath)
 {
+
+    auto unlink_cb = [](
+            const char *fpath, 
+            const struct stat *sb, 
+            int typeflag, 
+            struct FTW *ftwbuf
+        )
+    {
+        return remove(fpath);
+    };
+
     //nftw(folder.c_str());
     //unlink(folder.c_str());
 
     //HE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "This code doesn't implemented.", "FileSystem::deleteFolderContents");
 
-    return 0;
+    return nftw(folderPath.c_str(), unlink_cb, HOOPOE_MAX_DIR_FILES_REMOVE, FTW_DEPTH | FTW_PHYS) != -1;
 }
 
 bool FileSystem::deleteFolderAndContents(const String &folderPath)
