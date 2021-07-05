@@ -21,7 +21,7 @@ SQLite
 <a name="building"><h1>Building</h1></a>
 
 ```no-highlight
-bash build.sh
+bash builder.sh
 ```
 <code>HSandbox</code> - binary for run the application.<br/>
 <code>HUTest</code> - binary for run the unit-tests.<br/>
