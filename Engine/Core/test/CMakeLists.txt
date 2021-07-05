@@ -6,7 +6,6 @@ file(GLOB TEST_CORE_SOURCES
 
 add_executable(TestCore ${TEST_CORE_SOURCES})
 
-configure_file(resources/TestResourceManager.txt ${PROJECT_BINARY_DIR}/utests/resources/TestResourceManager.txt COPYONLY)
-configure_file(resources/TestConfigFile.cfg ${PROJECT_BINARY_DIR}/utests/resources/TestConfigFile.cfg COPYONLY)
+file(COPY resources DESTINATION ${PROJECT_BINARY_DIR}/utests/)
 
 target_link_libraries(TestCore PRIVATE UTest)

@@ -109,23 +109,42 @@ bool FileSystem::deleteEmptyFolder(const String &folderPath)
 bool FileSystem::deleteFolderContents(const String &folderPath)
 {
 
-    auto unlink_cb = [](
-            const char *fpath, 
-            const struct stat *sb, 
-            int typeflag, 
-            struct FTW *ftwbuf
-        )
+    DIR *theFolder = opendir(folderPath.c_str());
+    struct dirent *next_file;
+    char filepath[256];
+
+    while ( (next_file = readdir(theFolder)) != NULL )
     {
-        return remove(fpath);
-    };
+        // build the path for each file in the folder
+        sprintf(filepath, "%s/%s", "path/of/folder", next_file->d_name);
+        remove(filepath);
+    }
+
+    closedir(theFolder);
+
+
+
+
+    // auto unlink_cb = [](
+    //         const char *fpath, 
+    //         const struct stat *sb, 
+    //         int typeflag, 
+    //         struct FTW *ftwbuf
+    //     )
+    // {
+    //     return remove(fpath);
+    // };
+
+
+    // return nftw(folderPath.c_str(), unlink_cb, HOOPOE_MAX_DIR_FILES_REMOVE, FTW_DEPTH | FTW_PHYS) != -1;
+    return 1;
+}
+
 
     //nftw(folder.c_str());
     //unlink(folder.c_str());
 
     //HE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "This code doesn't implemented.", "FileSystem::deleteFolderContents");
-
-    return nftw(folderPath.c_str(), unlink_cb, HOOPOE_MAX_DIR_FILES_REMOVE, FTW_DEPTH | FTW_PHYS) != -1;
-}
 
 bool FileSystem::deleteFolderAndContents(const String &folderPath)
 {

@@ -21,67 +21,67 @@ void TestFileSystem::run()
 
 void TestFileSystem::testCreateFile()
 {
-    UTEST_ASSERT(FileSystem::createFile(FileSystem::getFullPath("utests/resources/testCreateFile")));
+    UTEST_ASSERT(FileSystem::createFile(FileSystem::getFullPath("utests/resources/TestFileSystem/testCreateFile")));
 }
 
 void TestFileSystem::testDeleteFile()
 {
-    UTEST_ASSERT(FileSystem::deleteFile(FileSystem::getFullPath("utests/resources/testDeleteFile")));
+    UTEST_ASSERT(FileSystem::deleteFile(FileSystem::getFullPath("utests/resources/TestFileSystem/testDeleteFile")));
 }
 
 void TestFileSystem::testMoveFile()
 {
-    UTEST_ASSERT(FileSystem::moveFile(FileSystem::getFullPath("utests/resources/dir1/testMoveFile"), FileSystem::getFullPath("utests/resources/dir2/testMoveFile")));
+    UTEST_ASSERT(FileSystem::moveFile(FileSystem::getFullPath("utests/resources/TestFileSystem/dir1/testMoveFile"), FileSystem::getFullPath("utests/resources/TestFileSystem/dir2/testMoveFile")));
 }
 
 void TestFileSystem::testIsFile()
 {
-    UTEST_ASSERT(FileSystem::isFile(FileSystem::getFullPath("utests/resources/testIsFile")));
+    UTEST_ASSERT(FileSystem::isFile(FileSystem::getFullPath("utests/resources/TestFileSystem/testIsFile")));
 }
 
 void TestFileSystem::testGetFileSize()
 {
-    UTEST_ASSERT(FileSystem::getFileSize(FileSystem::getFullPath("utests/resources/testGetFileSize")) == 9);
+    UTEST_ASSERT(FileSystem::getFileSize(FileSystem::getFullPath("utests/resources/TestFileSystem/testGetFileSize")) == 9);
 }
 
 void TestFileSystem::testCreateFolder()
 {
-    UTEST_ASSERT(FileSystem::createFolder(FileSystem::getFullPath("utests/resources/testCreateFolder")));
+    UTEST_ASSERT(FileSystem::createFolder(FileSystem::getFullPath("utests/resources/TestFileSystem/testCreateFolder")));
 }
 
 void TestFileSystem::testDeleteEmptyFolder()
 {
-    UTEST_ASSERT(FileSystem::deleteEmptyFolder(FileSystem::getFullPath("utests/resources/testDeleteEmptyFolder")));
+    UTEST_ASSERT(FileSystem::deleteEmptyFolder(FileSystem::getFullPath("utests/resources/TestFileSystem/testDeleteEmptyFolder")));
 }
 
 void TestFileSystem::testDeleteFolderContents()
 {
-    UTEST_ASSERT(FileSystem::deleteFolderContents(FileSystem::getFullPath("utests/resources/testDelDirContents")));
+    UTEST_ASSERT(FileSystem::deleteFolderContents(FileSystem::getFullPath("utests/resources/TestFileSystem/testDelDirContents")));
 }
 
 void TestFileSystem::testDeleteFolderAndContents()
 {
-    UTEST_ASSERT(FileSystem::deleteFolderAndContents(FileSystem::getFullPath("utests/resources/testDelDirAndContents")));
+    UTEST_ASSERT(FileSystem::deleteFolderAndContents(FileSystem::getFullPath("utests/resources/TestFileSystem/testDelDirAndContents")));
 }
 
 void TestFileSystem::testMoveFolder()
 {
-    UTEST_ASSERT(FileSystem::moveFolder(FileSystem::getFullPath("utests/resources/dir1/dir3"), FileSystem::getFullPath("utests/resources/dir2/dir3")));
+    UTEST_ASSERT(FileSystem::moveFolder(FileSystem::getFullPath("utests/resources/TestFileSystem/dir1/dir3"), FileSystem::getFullPath("utests/resources/TestFileSystem/dir2/dir3")));
 }
 
 void TestFileSystem::testCopyFolder()
 {
-    UTEST_ASSERT(FileSystem::copyFolder(FileSystem::getFullPath("utests/resources/dir1"), FileSystem::getFullPath("utests/resources/dir4")));
+    UTEST_ASSERT(FileSystem::copyFolder(FileSystem::getFullPath("utests/resources/TestFileSystem/dir1"), FileSystem::getFullPath("utests/resources/TestFileSystem/dir4")));
 }
 
 void TestFileSystem::testIsFolder()
 {
-    UTEST_ASSERT(FileSystem::isFolder(FileSystem::getFullPath("utests/resources/dir1")));
+    UTEST_ASSERT(FileSystem::isFolder(FileSystem::getFullPath("utests/resources/TestFileSystem/dir1")));
 }
 
 void TestFileSystem::testGetCurrentDirectory()
 {
-    UTEST_ASSERT(FileSystem::isFile(FileSystem::getFullPath("utests/resources/testGetStringDir")));
+    UTEST_ASSERT(FileSystem::isFile(FileSystem::getFullPath("utests/resources/TestFileSystem/testGetStringDir")));
 }
 
 } // Test
