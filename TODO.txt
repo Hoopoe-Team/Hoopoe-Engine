@@ -11,4 +11,4 @@ Create:
 Improve:
 - LogManager // Рефакторинг
 - UTest // Рефакторинг
-- builder
+- builder.sh // директории для бинарников, сборка только Sandbox проекта, аргументы
