@@ -1,5 +1,6 @@
 #!/bin/bash
 BASE_DIR=$(dirname "$0")
+BASE_DIR="$PWD/$BASE_DIR"
 DEFAULT_BUILD_DIR="build"
 DEFAULT_UTEST=1
 DEFAULT_CORES=4
@@ -34,7 +35,7 @@ if [ "$UTEST" = "1" ]; then
         cd "$BASE_DIR/Engine/Core/test/resources/"
         sudo -u ${USERNAME} unzip res.zip
         rm res.zip
-        cd "$BASE_DIR/../../../../"
+        cd $BASE_DIR
     fi
 
     if [ "$1" = "update-tests" ]; then
@@ -43,6 +44,7 @@ if [ "$UTEST" = "1" ]; then
 fi
 
 cd $BUILD_DIR
+
 echo -e "${WHITE}--------------------- CMAKE ----------------------${NO_COLOR}"
 cmake -DUTEST=$UTEST ..
 
