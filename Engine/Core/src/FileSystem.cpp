@@ -191,9 +191,11 @@ bool FileSystem::isFolder(const String &path)
 
 String FileSystem::getCurrentDirectory()
 {
-    char cwd[PATH_MAX];
-    if (getcwd(cwd, sizeof(cwd)) != NULL) {
-        return String(cwd);
+    char buff[PATH_MAX];
+    ssize_t len = readlink("/proc/self/exe", buff, sizeof(buff)-1);
+    if (len != -1) {
+        buff[len] = '\0';
+        return String(dirname(buff));
     }
 
     HE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot get current directory", "FileSystem::getCurrentDirectory()");

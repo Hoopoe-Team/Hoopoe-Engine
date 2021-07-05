@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <dirent.h>
+#include <libgen.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fcntl.h>

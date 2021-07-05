@@ -21,67 +21,67 @@ void TestFileSystem::run()
 
 void TestFileSystem::testCreateFile()
 {
-    UTEST_ASSERT(FileSystem::createFile(FileSystem::getFullPath("utests/resources/TestFileSystem/testCreateFile")));
+    UTEST_ASSERT(FileSystem::createFile(FileSystem::getFullPath("resources/TestFileSystem/testCreateFile")));
 }
 
 void TestFileSystem::testDeleteFile()
 {
-    UTEST_ASSERT(FileSystem::deleteFile(FileSystem::getFullPath("utests/resources/TestFileSystem/testDeleteFile")));
+    UTEST_ASSERT(FileSystem::deleteFile(FileSystem::getFullPath("resources/TestFileSystem/testDeleteFile")));
 }
 
 void TestFileSystem::testMoveFile()
 {
-    UTEST_ASSERT(FileSystem::moveFile(FileSystem::getFullPath("utests/resources/TestFileSystem/dir1/testMoveFile"), FileSystem::getFullPath("utests/resources/TestFileSystem/dir2/testMoveFile")));
+    UTEST_ASSERT(FileSystem::moveFile(FileSystem::getFullPath("resources/TestFileSystem/dir1/testMoveFile"), FileSystem::getFullPath("resources/TestFileSystem/dir2/testMoveFile")));
 }
 
 void TestFileSystem::testIsFile()
 {
-    UTEST_ASSERT(FileSystem::isFile(FileSystem::getFullPath("utests/resources/TestFileSystem/testIsFile")));
+    UTEST_ASSERT(FileSystem::isFile(FileSystem::getFullPath("resources/TestFileSystem/testIsFile")));
 }
 
 void TestFileSystem::testGetFileSize()
 {
-    UTEST_ASSERT(FileSystem::getFileSize(FileSystem::getFullPath("utests/resources/TestFileSystem/testGetFileSize")) == 9);
+    UTEST_ASSERT(FileSystem::getFileSize(FileSystem::getFullPath("resources/TestFileSystem/testGetFileSize")) == 9);
 }
 
 void TestFileSystem::testCreateFolder()
 {
-    UTEST_ASSERT(FileSystem::createFolder(FileSystem::getFullPath("utests/resources/TestFileSystem/testCreateFolder")));
+    UTEST_ASSERT(FileSystem::createFolder(FileSystem::getFullPath("resources/TestFileSystem/testCreateFolder")));
 }
 
 void TestFileSystem::testDeleteEmptyFolder()
 {
-    UTEST_ASSERT(FileSystem::deleteEmptyFolder(FileSystem::getFullPath("utests/resources/TestFileSystem/testDeleteEmptyFolder")));
+    UTEST_ASSERT(FileSystem::deleteEmptyFolder(FileSystem::getFullPath("resources/TestFileSystem/testDeleteEmptyFolder")));
 }
 
 void TestFileSystem::testDeleteFolderContents()
 {
-    UTEST_ASSERT(FileSystem::deleteFolderContents(FileSystem::getFullPath("utests/resources/TestFileSystem/testDelDirContents")));
+    UTEST_ASSERT(FileSystem::deleteFolderContents(FileSystem::getFullPath("resources/TestFileSystem/testDelDirContents")));
 }
 
 void TestFileSystem::testDeleteFolderAndContents()
 {
-    UTEST_ASSERT(FileSystem::deleteFolderAndContents(FileSystem::getFullPath("utests/resources/TestFileSystem/testDelDirAndContents")));
+    UTEST_ASSERT(FileSystem::deleteFolderAndContents(FileSystem::getFullPath("resources/TestFileSystem/testDelDirAndContents")));
 }
 
 void TestFileSystem::testMoveFolder()
 {
-    UTEST_ASSERT(FileSystem::moveFolder(FileSystem::getFullPath("utests/resources/TestFileSystem/dir1/dir3"), FileSystem::getFullPath("utests/resources/TestFileSystem/dir2/dir3")));
+    UTEST_ASSERT(FileSystem::moveFolder(FileSystem::getFullPath("resources/TestFileSystem/dir1/dir3"), FileSystem::getFullPath("resources/TestFileSystem/dir2/dir3")));
 }
 
 void TestFileSystem::testCopyFolder()
 {
-    UTEST_ASSERT(FileSystem::copyFolder(FileSystem::getFullPath("utests/resources/TestFileSystem/dir1"), FileSystem::getFullPath("utests/resources/TestFileSystem/dir4")));
+    UTEST_ASSERT(FileSystem::copyFolder(FileSystem::getFullPath("resources/TestFileSystem/dir1"), FileSystem::getFullPath("resources/TestFileSystem/dir4")));
 }
 
 void TestFileSystem::testIsFolder()
 {
-    UTEST_ASSERT(FileSystem::isFolder(FileSystem::getFullPath("utests/resources/TestFileSystem/dir1")));
+    UTEST_ASSERT(FileSystem::isFolder(FileSystem::getFullPath("resources/TestFileSystem/dir1")));
 }
 
 void TestFileSystem::testGetCurrentDirectory()
 {
-    UTEST_ASSERT(FileSystem::isFile(FileSystem::getFullPath("utests/resources/TestFileSystem/testGetStringDir")));
+    UTEST_ASSERT(FileSystem::isFile(FileSystem::getFullPath("resources/TestFileSystem/testGetStringDir")));
 }
 
 } // Test
