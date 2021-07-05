@@ -108,51 +108,68 @@ bool FileSystem::deleteEmptyFolder(const String &folderPath)
 
 bool FileSystem::deleteFolderContents(const String &folderPath)
 {
-
-    DIR *theFolder = opendir(folderPath.c_str());
-    struct dirent *next_file;
-    char filepath[256];
-
-    while ( (next_file = readdir(theFolder)) != NULL )
+    auto unlink_cb = [](
+            const char *fpath, 
+            const struct stat *sb, 
+            int typeflag, 
+            struct FTW *ftwbuf
+        )
     {
-        // build the path for each file in the folder
-        sprintf(filepath, "%s/%s", "path/of/folder", next_file->d_name);
-        remove(filepath);
-    }
+        // Do not delete if this is the current directory 
+        if(ftwbuf->level == 0 && typeflag == FTW_DP)
+            return 0;
 
-    closedir(theFolder);
-
-
+        return remove(fpath);
+    };
 
 
-    // auto unlink_cb = [](
+    return nftw(folderPath.c_str(), unlink_cb, HOOPOE_MAX_DIR_FILES_REMOVE, FTW_DEPTH | FTW_PHYS) != -1;
+}
+
+bool FileSystem::deleteFolderAndContents(const String &folderPath)
+{
+    auto unlink_cb = [](
+            const char *fpath, 
+            const struct stat *sb, 
+            int typeflag, 
+            struct FTW *ftwbuf
+        )
+    {
+        return remove(fpath);
+    };
+
+
+    return nftw(folderPath.c_str(), unlink_cb, HOOPOE_MAX_DIR_FILES_REMOVE, FTW_DEPTH | FTW_PHYS) != -1;
+}
+
+bool FileSystem::moveFolder(const String &oldPath, const String &newPath)
+{
+
+    // if(!createFolder(newPath))
+    // {
+    //     HE_CORE_ERROR(String("Can't create folder " + newPath));
+    //     return 0;
+    // }
+
+    // auto create_folders = [](
     //         const char *fpath, 
     //         const struct stat *sb, 
     //         int typeflag, 
     //         struct FTW *ftwbuf
     //     )
     // {
-    //     return remove(fpath);
+    //     // if (stat(fpath, &pathStat) == -1)
+    //     //     return mkdir(fpath, 0700);
+
+    //     // return 0;
+    //     if(typeflag != FTW_F)
+    //         std::cout << fpath << std::endl;
+            
+    //     return 0;
     // };
 
-
-    // return nftw(folderPath.c_str(), unlink_cb, HOOPOE_MAX_DIR_FILES_REMOVE, FTW_DEPTH | FTW_PHYS) != -1;
-    return 1;
-}
-
-
-    //nftw(folder.c_str());
-    //unlink(folder.c_str());
-
-    //HE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "This code doesn't implemented.", "FileSystem::deleteFolderContents");
-
-bool FileSystem::deleteFolderAndContents(const String &folderPath)
-{
-    return deleteFolderContents(folderPath) && deleteEmptyFolder(folderPath);
-}
-
-bool FileSystem::moveFolder(const String &oldPath, const String &newPath)
-{
+    // nftw(oldPath.c_str(), create_folders, HOOPOE_MAX_DIR_FILES_REMOVE, FTW_DEPTH | FTW_PHYS) != -1;
+    
     //HE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "This code doesn't implemented.", "FileSystem::moveFolder");
 
     return 0;
