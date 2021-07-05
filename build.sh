@@ -28,13 +28,7 @@ fi
 if [ "$UTEST" = "1" ]; then
     cd "Engine/Core/test/resources/"
     echo -e "${WHITE}-------------- Unpacking resources ---------------${NO_COLOR}"
-    
-    if [ ! -d "res" ]; then
-        sudo -u ${USERNAME} mkdir res
-    fi
-
     sudo -u ${USERNAME} unzip res.zip
-
     cd "../../../../"
 fi
 
