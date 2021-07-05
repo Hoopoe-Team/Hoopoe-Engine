@@ -13,6 +13,7 @@ Hoopoe engine is designed to create a simple simulated world.
 g++
 make
 CMake
+unzip
 SDL2
 SQLite
 ```
@@ -20,9 +21,7 @@ SQLite
 <a name="building"><h1>Building</h1></a>
 
 ```no-highlight
-mkdir build && cd build
-cmake ..
-make
+bash build.sh
 ```
 <code>HSandbox</code> - binary for run the application.<br/>
 <code>HUTest</code> - binary for run the unit-tests.<br/>
