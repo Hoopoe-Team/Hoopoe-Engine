@@ -22,9 +22,9 @@ NO_COLOR='\033[0m'
 
 HELP_MSG="\
 Available options:\n\
-\t${WHITE}--engine${NO_COLOR} or ${WHITE}-e${NO_COLOR} \t\tcompile engine only.\n\
-\t${WHITE}--sandbox${NO_COLOR} or ${WHITE}-s${NO_COLOR} \tcompile sandbox only.\n\
-\t${WHITE}--update-tests${NO_COLOR} or ${WHITE}-upd${NO_COLOR} \tupdate UTest resources.\n\
+\t${WHITE}--engine${NO_COLOR} or ${WHITE}-e${NO_COLOR} \t\tbuild engine only.\n\
+\t${WHITE}--sandbox${NO_COLOR} or ${WHITE}-s${NO_COLOR} \tbuild sandbox only.\n\
+\t${WHITE}--update-tests${NO_COLOR} or ${WHITE}-u${NO_COLOR} \tupdate UTest resources.\n\
 \t${WHITE}--default${NO_COLOR} or ${WHITE}-d${NO_COLOR} \tcompile with default settings.\n\
 "
 # ----------------------------------------- #
@@ -43,7 +43,7 @@ do
             ENGINE_ONLY=0
             SANDBOX_ONLY=1
             ;;
-        "--update-tests" | "-upd" )
+        "--update-tests" | "-u" )
             UPDATE_TESTS=1
             ;;
         "--default" | "-d" )
