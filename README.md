@@ -1,14 +1,14 @@
 # ![he2](https://user-images.githubusercontent.com/34447743/121752164-da28ff80-cb0f-11eb-9172-3b678d40b3a5.png)Hoopoe-Engine
-##### <h2>Content</h2>
-[Introduction](#introduction)<br/>
-[Requirements](#requirements)<br/>
-[Building](#building)<br/>
- - [On Linux](#building-linux)
-      - [Requirements](#building-linux-requirements)
-      - [Compiling](#building-linux-compiling)
-      - [Builder flags](#building-linux-builder-flags)
-      - [Cmake flags](#building-cmake-flags)
- - [On Windows](#building-windows)
+##### <h3>Content</h3>
+ - [Introduction](#introduction)<br/>
+ - [Requirements](#requirements)<br/>
+ - [Building](#building)
+      - [On Linux](#building-linux)
+           - [Requirements](#building-linux-requirements)
+           - [Compiling](#building-linux-compiling)
+           - [Builder flags](#building-linux-builder-flags)
+           - [Cmake flags](#building-cmake-flags)
+      - [On Windows](#building-windows)
 
 <a name="introduction"><h1>Introduction</h1></a>
 Hoopoe engine is designed to create a simple simulated world.
