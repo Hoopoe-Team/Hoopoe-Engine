@@ -13,7 +13,7 @@
 namespace Hoopoe 
 {
 
-class LogManager : public LogAlloc
+class LogManager
 {
 public:
     static void Init();

@@ -6,7 +6,7 @@
 namespace Hoopoe 
 {
 
-class Application : public AppicationAlloc
+class Application
 {
 public:
     Application();

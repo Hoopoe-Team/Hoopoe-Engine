@@ -27,8 +27,8 @@ public:
         ERR_INVALID_CALL
     };
 
-    Exception(int number, const String& description, const String& source);
-    Exception(int number, const String& description, const String& source, const char* type, const char* file, long line);
+    Exception(const String& description, const String& source);
+    Exception(const String& description, const String& source, const char* type, const char* file, long line);
     Exception(const Exception& rhs);
 
     ~Exception() throw() {}
@@ -53,71 +53,71 @@ protected:
 class UnimplementedException : public Exception 
 {
 public:
-    UnimplementedException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
-        : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
+    UnimplementedException(const String& inDescription, const String& inSource, const char* inFile, long inLine)
+        : Exception(inDescription, inSource, __FUNCTION__, inFile, inLine) {}
 }; // UnimplementedException
 
 class FileNotFoundException : public Exception
 {
 public:
-    FileNotFoundException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
-        : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
+    FileNotFoundException(const String& inDescription, const String& inSource, const char* inFile, long inLine)
+        : Exception(inDescription, inSource, __FUNCTION__, inFile, inLine) {}
 }; // FileNotFoundException
 
 class IOException : public Exception
 {
 public:
-    IOException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
-        : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
+    IOException(const String& inDescription, const String& inSource, const char* inFile, long inLine)
+        : Exception(inDescription, inSource, __FUNCTION__, inFile, inLine) {}
 }; // IOException
 
 class InvalidStateException : public Exception
 {
 public:
-    InvalidStateException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
-        : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
+    InvalidStateException(const String& inDescription, const String& inSource, const char* inFile, long inLine)
+        : Exception(inDescription, inSource, __FUNCTION__, inFile, inLine) {}
 }; // InvalidStateException
 
 class InvalidParametersException : public Exception
 {
 public:
-    InvalidParametersException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
-        : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
+    InvalidParametersException(const String& inDescription, const String& inSource, const char* inFile, long inLine)
+        : Exception(inDescription, inSource, __FUNCTION__, inFile, inLine) {}
 }; // InvalidParametersException
 
 class ItemIdentityException : public Exception
 {
 public:
-    ItemIdentityException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
-        : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
+    ItemIdentityException(const String& inDescription, const String& inSource, const char* inFile, long inLine)
+        : Exception(inDescription, inSource, __FUNCTION__, inFile, inLine) {}
 }; // ItemIdentityException
 
 class InternalErrorException : public Exception
 {
 public:
-    InternalErrorException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
-        : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
+    InternalErrorException(const String& inDescription, const String& inSource, const char* inFile, long inLine)
+        : Exception(inDescription, inSource, __FUNCTION__, inFile, inLine) {}
 }; // InternalErrorException
 
 class RenderingAPIException : public Exception
 {
 public:
-    RenderingAPIException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
-        : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
+    RenderingAPIException(const String& inDescription, const String& inSource, const char* inFile, long inLine)
+        : Exception(inDescription, inSource, __FUNCTION__, inFile, inLine) {}
 }; // RenderingAPIException
 
 class RuntimeAssertionException : public Exception
 {
 public:
-    RuntimeAssertionException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
-        : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
+    RuntimeAssertionException(const String& inDescription, const String& inSource, const char* inFile, long inLine)
+        : Exception(inDescription, inSource, __FUNCTION__, inFile, inLine) {}
 }; // RuntimeAssertionException
 
 class InvalidCallException : public Exception
 {
 public:
-    InvalidCallException(int inNumber, const String& inDescription, const String& inSource, const char* inFile, long inLine)
-        : Exception(inNumber, inDescription, inSource, __FUNCTION__, inFile, inLine) {}
+    InvalidCallException(const String& inDescription, const String& inSource, const char* inFile, long inLine)
+        : Exception(inDescription, inSource, __FUNCTION__, inFile, inLine) {}
 }; // InvalidCallException
 
 class ExceptionFactory
@@ -128,30 +128,30 @@ public:
         const String& desc,
         const String& src, const char* file, long line)
     {
-        _throwException(code, code, desc, src, file, line);
+        _throwException(code, desc, src, file, line);
     }
 
 private:
     /// Private constructor, no construction
     ExceptionFactory() {}
     static void _throwException(
-        Exception::ExceptionCodes code, int number,
+        Exception::ExceptionCodes code,
         const String& desc, 
         const String& src, const char* file, long line)
     {
         switch (code)
         {
-        case Exception::ERR_CANNOT_WRITE_TO_FILE:   throw IOException(number, desc, src, file, line);
-        case Exception::ERR_INVALID_STATE:          throw InvalidStateException(number, desc, src, file, line);
-        case Exception::ERR_INVALIDPARAMS:          throw InvalidParametersException(number, desc, src, file, line);
-        case Exception::ERR_RENDERINGAPI_ERROR:     throw RenderingAPIException(number, desc, src, file, line);
-        case Exception::ERR_DUPLICATE_ITEM:         throw ItemIdentityException(number, desc, src, file, line);
-        case Exception::ERR_FILE_NOT_FOUND:         throw FileNotFoundException(number, desc, src, file, line);
-        case Exception::ERR_INTERNAL_ERROR:         throw InternalErrorException(number, desc, src, file, line);
-        case Exception::ERR_RT_ASSERTION_FAILED:    throw RuntimeAssertionException(number, desc, src, file, line);
-        case Exception::ERR_NOT_IMPLEMENTED:        throw UnimplementedException(number, desc, src, file, line);
-        case Exception::ERR_INVALID_CALL:           throw InvalidCallException(number, desc, src, file, line);
-        default:                                    throw Exception(number, desc, src, "Exception", file, line);
+        case Exception::ERR_CANNOT_WRITE_TO_FILE:   throw IOException(desc, src, file, line);
+        case Exception::ERR_INVALID_STATE:          throw InvalidStateException(desc, src, file, line);
+        case Exception::ERR_INVALIDPARAMS:          throw InvalidParametersException(desc, src, file, line);
+        case Exception::ERR_RENDERINGAPI_ERROR:     throw RenderingAPIException(desc, src, file, line);
+        case Exception::ERR_DUPLICATE_ITEM:         throw ItemIdentityException(desc, src, file, line);
+        case Exception::ERR_FILE_NOT_FOUND:         throw FileNotFoundException(desc, src, file, line);
+        case Exception::ERR_INTERNAL_ERROR:         throw InternalErrorException(desc, src, file, line);
+        case Exception::ERR_RT_ASSERTION_FAILED:    throw RuntimeAssertionException(desc, src, file, line);
+        case Exception::ERR_NOT_IMPLEMENTED:        throw UnimplementedException(desc, src, file, line);
+        case Exception::ERR_INVALID_CALL:           throw InvalidCallException(desc, src, file, line);
+        default:                                    throw Exception(desc, src, "Exception", file, line);
         }
     }
 }; // ExceptionFactory

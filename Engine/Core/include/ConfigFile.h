@@ -16,7 +16,7 @@ namespace Hoopoe
 typedef std::multimap<String, String> SettingsMultiMap;
 typedef std::map<String, SettingsMultiMap> SettingsBySection;
 
-class ConfigFile : public ConfigAlloc
+class ConfigFile
 {
 public:
     #define HE_ALL_CONFIG_SECTIONS "__ALL"

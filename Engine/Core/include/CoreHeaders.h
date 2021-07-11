@@ -3,6 +3,7 @@
 
 #include "CorePrerequisites.h"
 
+#include "Platform.h"
 #include "Types.h"
 #include "Exception.h"
 #include "SharedPtr.h"

@@ -16,7 +16,7 @@
 namespace Hoopoe
 {
 
-class DataStream : public StreamAlloc
+class DataStream
 {
 public:
     // Constructor for creating unnamed streams
