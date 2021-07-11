@@ -2,29 +2,29 @@ cmake_minimum_required(VERSION 3.13)
 
 project(Hoopoe VERSION 0.1 LANGUAGES CXX) # ${PROJECT_NAME}
 
-set(BUILD_DIR "build") # default build directory
-
 # Compile flags
-add_compile_options(
-    #-Werror # unused variables 
+if(UNIX AND NOT APPLE)
+    add_compile_options(
+        #-Werror # unused variables 
 
-    -Wall
-    -Wextra
-    -Wpedantic
+        -Wall
+        -Wextra
+        -Wpedantic
 
-    -Wcast-align
-    -Wcast-qual
-    -Wconversion
-    -Wctor-dtor-privacy
-    -Wenum-compare
-    -Wfloat-equal
-    -Wnon-virtual-dtor
-    -Wold-style-cast
-    -Woverloaded-virtual
-    #-Wredundant-decls
-    -Wsign-conversion
-    -Wsign-promo
-)
+        -Wcast-align
+        -Wcast-qual
+        -Wconversion
+        -Wctor-dtor-privacy
+        -Wenum-compare
+        -Wfloat-equal
+        -Wnon-virtual-dtor
+        -Wold-style-cast
+        -Woverloaded-virtual
+        #-Wredundant-decls
+        -Wsign-conversion
+        -Wsign-promo
+    )
+endif()
 
 # --------------------- Include paths --------------------- #
 
@@ -45,7 +45,7 @@ if(UTEST)
     add_subdirectory(${PROJECT_SOURCE_DIR}/Engine/UTest)
 
     # Tests
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/utests)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin/utests)
 
     add_subdirectory(${PROJECT_SOURCE_DIR}/Engine/UTest/test)
     add_subdirectory(${PROJECT_SOURCE_DIR}/Engine/Core/test)
