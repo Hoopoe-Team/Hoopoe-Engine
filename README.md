@@ -31,8 +31,8 @@ bash builder.sh
 <code>--default</code> or <code>-d</code> - build with default settings.<br/>
 
 <a name="building-cmake-flags"><h4>CMake flags</h4></a>
-<code>-DUTEST=bool</code> - build with the unit-tests<br/>
-<code>-DSANDBOX_ONLY=bool</code> - compiling only Sandbox (only for /Sandbox/CMakeLists.txt)<br/>
+<code>-DUTEST=1</code> - build with the unit-tests<br/>
+<code>-DSANDBOX_ONLY=1</code> - compiling only Sandbox (only for /Sandbox/CMakeLists.txt)<br/>
 
 <a name="building-windows"><h3>On Windows</h3></a>
 At the moment windows is not supported.
