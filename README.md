@@ -1,7 +1,6 @@
 # ![he2](https://user-images.githubusercontent.com/34447743/121752164-da28ff80-cb0f-11eb-9172-3b678d40b3a5.png)Hoopoe-Engine
 ##### <h3>Content</h3>
  - [Introduction](#introduction)<br/>
- - [Requirements](#requirements)<br/>
  - [Building](#building)
       - [On Linux](#building-linux)
            - [Requirements](#building-linux-requirements)
