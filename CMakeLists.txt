@@ -37,17 +37,3 @@ include_directories(${PROJECT_SOURCE_DIR}/Engine)
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/Engine/)
 add_subdirectory(${PROJECT_SOURCE_DIR}/Sandbox/)
-
-# ------------------------- UTest ------------------------- #
-
-if(UTEST)
-    # UTest main
-    add_subdirectory(${PROJECT_SOURCE_DIR}/Engine/UTest)
-
-    # Tests
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin/utests)
-
-    add_subdirectory(${PROJECT_SOURCE_DIR}/Engine/UTest/test)
-    add_subdirectory(${PROJECT_SOURCE_DIR}/Engine/Core/test)
-    
-endif()
