@@ -3,11 +3,11 @@
 namespace Hoopoe 
 {
 
-Exception::Exception(int num, const String& desc, const String& src) :
-    Exception(num, desc, src, "", "", 0)
+Exception::Exception(const String& desc, const String& src) :
+    Exception(desc, src, "", "", 0)
 {}
 
-Exception::Exception(int num, const String& desc, const String& src, 
+Exception::Exception(const String& desc, const String& src, 
     const char* _type, const char* _file, long _line) :
         line(_line),
         typeName(_type),

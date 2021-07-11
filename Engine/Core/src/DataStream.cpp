@@ -14,6 +14,7 @@ String DataStream::getLine(bool trimAfter)
     char tmpBuf[HOOPOE_STREAM_TEMP_SIZE];
     String retString;
     size_t readCount;
+
     // Keep looping while not hitting delimiter
     while ((readCount = read(tmpBuf, HOOPOE_STREAM_TEMP_SIZE-1)) != 0)
     {
@@ -21,7 +22,7 @@ String DataStream::getLine(bool trimAfter)
         tmpBuf[readCount] = '\0';
 
         char* p = strchr(tmpBuf, '\n');
-        if (p != 0)
+        if (p != NULL)
         {
             // Reposition backwards
             skip(static_cast<long>((p + 1 - tmpBuf - readCount)));
@@ -30,7 +31,7 @@ String DataStream::getLine(bool trimAfter)
 
         retString += tmpBuf;
 
-        if (p != 0)
+        if (p != NULL)
         {
             // Trim off trailing CR if this was a CR/LF entry
             if (retString.length() && retString[retString.length()-1] == '\r')
@@ -266,6 +267,7 @@ size_t FileStream::readLine(char* buf, size_t maxCount, const String& delim)
     {
         HE_CORE_WARN("FileStreamDataStream::readLine - using only first delimiter");
     }
+    
     // Deal with both Unix & Windows LFs
     bool trimCR = false;
     if (delim.at(0) == '\n') 

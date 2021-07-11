@@ -7,7 +7,7 @@ extern Hoopoe::Application* Hoopoe::CreateApplication();
 
 int main(int argc, char* argv[]) 
 {
-    Hoopoe::ConfigFile engineCfg("hoopoe.cfg");
+    Hoopoe::ConfigFile engineCfg(Hoopoe::FileSystem::getFullPath("hoopoe.cfg"));
     Hoopoe::LogManager::Init(engineCfg);
 
     HE_CORE_INFO("hoopoe.cfg loaded.");
@@ -16,7 +16,6 @@ int main(int argc, char* argv[])
     HE_CORE_INFO("All subsystems of Hoopoe Engine ver." + engineCfg.getSetting("engine_version", "General", "0") + " were initialized!");
 
     auto app = Hoopoe::CreateApplication();
-    HE_EXCEPT(Hoopoe::Exception::ERR_NOT_IMPLEMENTED, "This code does not support to work.", "int main(int argc, char* argv[])");
     app->Run();
     delete app;
 
