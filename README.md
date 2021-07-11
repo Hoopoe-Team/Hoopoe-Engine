@@ -3,28 +3,38 @@
 [Introduction](#introduction)<br/>
 [Requirements](#requirements)<br/>
 [Building](#building)<br/>
-  - [Builder flags](#builder-flags)
-  - [Cmake flags](#cmake-flags)
+ - [On Linux](#building-linux)
+      - [Requirements](#building-linux-requirements)
+      - [Compiling](#building-linux-compiling)
+      - [Builder flags](#building-linux-builder-flags)
+      - [Cmake flags](#building-cmake-flags)
+ - [On Windows](#building-windows)
 
 <a name="introduction"><h1>Introduction</h1></a>
 Hoopoe engine is designed to create a simple simulated world.
-<a name="requirements"><h1>Requirements</h1></a>
+
+<a name="building"><h1>Building</h1></a>
+<a name="building-linux"><h3>On Linux</h3></a>
+<a name="building-linux-requirements"><h4>Requirements</h4></a>
 
 ```no-highlight
 sudo apt-get install build-essential cmake unzip
 ```
-
-<a name="building"><h1>Building</h1></a>
+<a name="building-linux-compiling"><h4>Compiling</h4></a>
 
 ```no-highlight
 bash builder.sh
 ```
-<a name="builder-flags"><h3>Builder flags</h3></a>
+<a name="building-linux-builder-flags"><h4>Builder flags</h4></a>
 <code>--engine</code> or <code>-e</code> - build engine only.<br/>
 <code>--sandbox</code> or <code>-s</code> - build sandbox only.<br/>
 <code>--update-tests</code> or <code>-u</code> - update UTest resources.<br/>
 <code>--default</code> or <code>-d</code> - build with default settings.<br/>
-<a name="cmake-flags"><h3>CMake flags</h3></a>
+
+<a name="building-cmake-flags"><h4>CMake flags</h4></a>
 <code>-DUTEST=bool</code> - build with the unit-tests<br/>
 <code>-DSANDBOX_ONLY=bool</code> - compiling only Sandbox (only for /Sandbox/CMakeLists.txt)<br/>
+
+<a name="building-windows"><h3>On Windows</h3></a>
+At the moment windows is not supported.
 
