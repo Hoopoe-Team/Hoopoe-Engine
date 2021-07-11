@@ -66,7 +66,7 @@ echo -e "${WHITE}----------------- Hoopoe builder -----------------${NO_COLOR}"
 
 if [ ! "$DEFAULT_SETTINS" = "1" ]; then
     # ----------------------------------------- #
-    # ----------- Default duild dir ----------- #
+    # ----------- Default build dir ----------- #
     # ----------------------------------------- #
 
     read -p "What directory would you like to use for the build? [default: $DEFAULT_BUILD_DIR]: " BUILD_DIR
