@@ -2,7 +2,7 @@
 BASE_DIR=$(dirname "$0")
 BASE_DIR="$PWD/$BASE_DIR"
 
-CONFIG_PATH=".builder-config"
+CONFIG_PATH="builder.config"
 
 DEFAULT_BUILD_DIR="build"
 DEFAULT_UTEST=1
