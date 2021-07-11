@@ -24,7 +24,7 @@ bash builder.sh
 <code>--sandbox</code> or <code>-s</code> - build sandbox only.<br/>
 <code>--update-tests</code> or <code>-u</code> - update UTest resources.<br/>
 <code>--default</code> or <code>-d</code> - build with default settings.<br/>
-<a name="cmake-flags"><h3>Cmake flags</h3></a>
+<a name="cmake-flags"><h3>CMake flags</h3></a>
 <code>-DUTEST=bool</code> - build with the unit-tests<br/>
 <code>-DSANDBOX_ONLY=bool</code> - compiling only Sandbox (only for /Sandbox/CMakeLists.txt)<br/>
 
