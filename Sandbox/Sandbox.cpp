@@ -1,27 +1,41 @@
+/*
+ *  Copyright (C) 2020-2021 Xios
+ *
+ *  This file is part of Hoopoe-Engine.
+ *
+ *  Hoopoe-Engine is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Hoopoe-Engine is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Hoopoe-Engine.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+
 #include <Hoopoe.h>
 #include <stdio.h>
 
 #include "Game/GameHeaders.h"
 
-class Sandbox : public Hoopoe::Application {
+class Sandbox : public Hoopoe::Application 
+{
 public:
-    Sandbox() {
-        Hoopoe::Graphics game;
-
-        SDL_Texture *background = game.loadTexture("../Sandbox/Game/resources/sprites/background.png");
-        SDL_RenderClear(game.get_renderer());
-        game.renderBackground(background);
-        SDL_RenderPresent(game.get_renderer());
-
-        SDL_Delay(1000);
-
-        SDL_DestroyTexture(background);
+    Sandbox() 
+    {
+        HE_CLIENT_INFO("Ok.");
     }
 
     ~Sandbox() {}
 };
 
-Hoopoe::Application* Hoopoe::CreateApplication() {
+Hoopoe::Application* Hoopoe::CreateApplication() 
+{
     return new Sandbox();
 }
 
