@@ -1,3 +1,23 @@
+/*
+ *  Copyright (C) 2020-2021 Xios
+ *
+ *  This file is part of Hoopoe-Engine.
+ *
+ *  Hoopoe-Engine is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Hoopoe-Engine is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Hoopoe-Engine.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+
 #include "DataStream.h"
 
 namespace Hoopoe
@@ -25,7 +45,7 @@ String DataStream::getLine(bool trimAfter)
         if (p != NULL)
         {
             // Reposition backwards
-            skip(static_cast<long>((p + 1 - tmpBuf - readCount)));
+            skip(static_cast<long>(p + 1 - tmpBuf - readCount));
             *p = '\0';
         }
 
@@ -54,7 +74,7 @@ String DataStream::getLine(bool trimAfter)
 
 size_t DataStream::readLine(char* buf, size_t maxCount, const String& delim)
 {
-    // Deal with both Unix & Windows
+    // Deal with both Unix and Windows
     bool trimCR = false;
     if (delim.find_first_of('\n') != String::npos)
     {
@@ -268,7 +288,7 @@ size_t FileStream::readLine(char* buf, size_t maxCount, const String& delim)
         HE_CORE_WARN("FileStreamDataStream::readLine - using only first delimiter");
     }
     
-    // Deal with both Unix & Windows LFs
+    // Deal with both Unix and Windows LFs
     bool trimCR = false;
     if (delim.at(0) == '\n') 
     {

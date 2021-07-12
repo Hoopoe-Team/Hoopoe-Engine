@@ -1,3 +1,23 @@
+/*
+ *  Copyright (C) 2020-2021 Xios
+ *
+ *  This file is part of Hoopoe-Engine.
+ *
+ *  Hoopoe-Engine is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Hoopoe-Engine is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Hoopoe-Engine.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+
 #ifndef __HOOPOE_ENGINE_CORE_PLATFORM_H__
 #define __HOOPOE_ENGINE_CORE_PLATFORM_H__
 
@@ -23,19 +43,19 @@
         defined(__WINNT__) ||   \
         defined(__WINNT)
 
-#   define OS_IS_WIN32          1
-#   define OS_IS_WIN32_NT       1
+#   define HE_IS_WIN32          1
+#   define HE_IS_WIN32_NT       1
 
 #elif defined(__linux) || defined(__linux__)
 
-#   define OS_IS_UNIX           1
-#   define OS_IS_UNIX_LINUX     1
+#   define HE_IS_UNIX           1
+#   define HE_IS_LINUX     1
 
 #elif defined(__APPLE__)
 
-#   define OS_IS_UNIX           1
-#   define OS_IS_UNIX_BSD       1
-#   define OS_IS_UNIX_MACOS     1
+#   define HE_IS_UNIX           1
+#   define HE_IS_BSD       1
+#   define HE_IS_MACOS     1
 
 #else
 

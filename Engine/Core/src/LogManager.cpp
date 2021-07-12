@@ -1,3 +1,23 @@
+/*
+ *  Copyright (C) 2020-2021 Xios
+ *
+ *  This file is part of Hoopoe-Engine.
+ *
+ *  Hoopoe-Engine is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Hoopoe-Engine is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Hoopoe-Engine.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+
 #include "LogManager.h"
 
 namespace Hoopoe 
@@ -17,7 +37,7 @@ void LogManager::Init()
     ClientLogger->set_level(spdlog::level::trace);
 }
 
-void LogManager::Init(const ConfigFile &config)
+void LogManager::Init(const ConfigFile& config)
 {
     LogManager::configure(config);
 
@@ -25,7 +45,7 @@ void LogManager::Init(const ConfigFile &config)
     spdlog::register_logger(ClientLogger);
 }
 
-void LogManager::configure(const ConfigFile &config)
+void LogManager::configure(const ConfigFile& config)
 {
     spdlog::set_pattern(config.getSetting("log_pattern", "Log Manager", "%^[%T] %n: %v%$"));
 
@@ -44,12 +64,12 @@ void LogManager::configure(const ConfigFile &config)
     if(allowFileLogging)
     {
         // Set the file name 
-        String coreLogFileName = String("logs/") + config.getSetting("log_core_file_name", "Log Manager", "EngineLog.txt");
-        String clientLogFileName = String("logs/") + config.getSetting("log_client_file_name", "Log Manager", "SandboxLog.txt");
+        String coreLogFileName = FileSystem::getFullPath("logs/") + config.getSetting("log_core_file_name", "Log Manager", "EngineLog.txt");
+        String clientLogFileName = FileSystem::getFullPath("logs/") + config.getSetting("log_client_file_name", "Log Manager", "SandboxLog.txt");
 
         // Set the maximum file size 
-        int coreFileMaxSize = std::stoi(config.getSetting("log_core_file_max_size", "Log Manager", "1048576"));
-        int clientFileMaxSize = std::stoi(config.getSetting("log_client_file_max_size", "Log Manager", "1048576"));
+        int32 coreFileMaxSize = std::stoi(config.getSetting("log_core_file_max_size", "Log Manager", "1048576"));
+        int32 clientFileMaxSize = std::stoi(config.getSetting("log_client_file_max_size", "Log Manager", "1048576"));
 
         CoreSinks.push_back(std::make_shared<spdlog::sinks::rotating_file_sink_mt>(coreLogFileName, coreFileMaxSize, 5, false));
         ClientSinks.push_back(std::make_shared<spdlog::sinks::rotating_file_sink_mt>(clientLogFileName, clientFileMaxSize, 5, false));
@@ -66,7 +86,7 @@ void LogManager::configure(const ConfigFile &config)
     ClientLogger->flush_on(spdlog::level::err);
 }
 
-void LogManager::setPattern(const String &pattern)
+void LogManager::setPattern(const String& pattern)
 {
     spdlog::set_pattern(pattern);
 }

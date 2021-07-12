@@ -1,3 +1,23 @@
+/*
+ *  Copyright (C) 2020-2021 Xios
+ *
+ *  This file is part of Hoopoe-Engine.
+ *
+ *  Hoopoe-Engine is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Hoopoe-Engine is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Hoopoe-Engine.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+
 #ifndef __HOOPOE_ENGINE_CORE_DATASTREAM_H__
 #define __HOOPOE_ENGINE_CORE_DATASTREAM_H__
 
@@ -43,7 +63,7 @@ public:
     }
 
     virtual size_t readLine(char* buf, size_t maxCount, const String& delim = "\n");  
-    virtual String getLine( bool trimAfter = true );
+    virtual String getLine(bool trimAfter = true);
 
     /* Returns a String containing the entire stream. */
     virtual String getAsString(void);
@@ -54,7 +74,7 @@ public:
     virtual void skip(long count) = 0;
 
     /* Repositions the read point to a specified byte. */
-    virtual void seek( size_t pos ) = 0;
+    virtual void seek(size_t pos) = 0;
     
     /* Returns the current byte offset from beginning */
     virtual size_t tell(void) const = 0;
@@ -111,7 +131,7 @@ public:
     size_t write(const void* buf, size_t count);
     size_t readLine(char* buf, size_t maxCount, const String& delim = "\n");
     void skip(long count);
-    void seek( size_t pos );
+    void seek(size_t pos);
     size_t tell(void) const;
     bool eof(void) const;
     void close(void);

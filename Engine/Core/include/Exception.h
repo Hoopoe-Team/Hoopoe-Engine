@@ -1,3 +1,23 @@
+/*
+ *  Copyright (C) 2020-2021 Xios
+ *
+ *  This file is part of Hoopoe-Engine.
+ *
+ *  Hoopoe-Engine is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Hoopoe-Engine is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Hoopoe-Engine.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+
 #ifndef __HOOPOE_ENGINE_CORE_EXCEPTION_H__
 #define __HOOPOE_ENGINE_CORE_EXCEPTION_H__
 
@@ -28,16 +48,16 @@ public:
     };
 
     Exception(const String& description, const String& source);
-    Exception(const String& description, const String& source, const char* type, const char* file, long line);
+    Exception(const String& description, const String& source, const char* typeName, const char* file, long line);
     Exception(const Exception& rhs);
 
     ~Exception() throw() {}
 
-    const String &getFullDescription(void) const { return fullDesc; }
-    const String &getSource() const { return source; }
+    const String& getFullDescription(void) const { return fullDesc; }
+    const String& getSource() const { return source; }
     const char* getFile() const { return file; }
     long getLine() const { return line; }
-    const String &getDescription(void) const { return description; }
+    const String& getDescription(void) const { return description; }
     const char* what() const throw() { return fullDesc.c_str(); }
 
     

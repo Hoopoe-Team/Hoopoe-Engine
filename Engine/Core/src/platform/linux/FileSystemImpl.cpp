@@ -1,3 +1,23 @@
+/*
+ *  Copyright (C) 2020-2021 Xios
+ *
+ *  This file is part of Hoopoe-Engine.
+ *
+ *  Hoopoe-Engine is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Hoopoe-Engine is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Hoopoe-Engine.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+
 #include "FileSystem.h"
 
 #define HOOPOE_MAX_DIR_FILES_REMOVE 64
@@ -7,9 +27,9 @@ namespace Hoopoe
 
 struct stat FileSystem::pathStat;
 
-DataStreamPtr FileSystem::openFileStream(const String &fullPath, std::ios::openmode mode, const String &name)
+DataStreamPtr FileSystem::openFileStream(const String& fullPath, std::ios::openmode mode, const String& name)
 {
-    int ret = stat(fullPath.c_str(), &pathStat);
+    int32 ret = stat(fullPath.c_str(), &pathStat);
     size_t st_size = ret == 0 ? pathStat.st_size : 0;
 
     std::istream* baseStream = 0;
@@ -58,41 +78,54 @@ DataStreamPtr FileSystem::openFileStream(const String &fullPath, std::ios::openm
     return DataStreamPtr(stream);
 }
 
-String FileSystem::getFullPath(const String &path)
+bool FileSystem::isAbsolutePath(const String& path)
 {
-    return String(FileSystem::getCurrentDirectory() + String("/") + path);
+    return path[0] == '/' || path[0] == '\\';
 }
 
-bool FileSystem::createFile(const String &fileName)
+String FileSystem::catPath(const String& basePath, const String& subPath)
+{
+    if (basePath.empty() || isAbsolutePath(subPath.c_str()))
+        return subPath;
+    else
+        return basePath + '/' + subPath;
+}
+
+String FileSystem::getFullPath(const String& path)
+{
+    return catPath(FileSystem::getCurrentDirectory(), path);
+}
+
+bool FileSystem::createFile(const String& fileName)
 {
     return creat(fileName.c_str(), S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) != -1;
 }
 
-bool FileSystem::deleteFile(const String &fileName)
+bool FileSystem::deleteFile(const String& fileName)
 {
     return remove(fileName.c_str()) != -1;
 }
 
-bool FileSystem::moveFile(const String &oldPath, const String &newPath)
+bool FileSystem::moveFile(const String& oldPath, const String& newPath)
 {
     return rename(oldPath.c_str(), newPath.c_str()) != -1;
 }
 
-bool FileSystem::isFile(const String &path)
+bool FileSystem::isFile(const String& path)
 {
     stat(path.c_str(), &pathStat);
 
     return S_ISREG(pathStat.st_mode);
 }
 
-size_t FileSystem::getFileSize(const String &path)
+size_t FileSystem::getFileSize(const String& path)
 {
     stat(path.c_str(), &pathStat);
 
     return pathStat.st_size;
 }
 
-bool FileSystem::createFolder(const String &path)
+bool FileSystem::createFolder(const String& path)
 {
     if (stat(path.c_str(), &pathStat) == -1)
         return mkdir(path.c_str(), 0700) != -1;
@@ -100,18 +133,18 @@ bool FileSystem::createFolder(const String &path)
     return 0;
 }
 
-bool FileSystem::deleteEmptyFolder(const String &folderPath)
+bool FileSystem::deleteEmptyFolder(const String& folderPath)
 {
     return rmdir(folderPath.c_str()) != -1;
 }
 
-bool FileSystem::deleteFolderContents(const String &folderPath)
+bool FileSystem::deleteFolderContents(const String& folderPath)
 {
     auto unlink_cb = [](
-            const char *fpath, 
-            const struct stat *sb, 
-            int typeflag, 
-            struct FTW *ftwbuf
+            const char* fpath, 
+            const struct stat* sb, 
+            int32 typeflag, 
+            struct FTW* ftwbuf
         )
     {
         // Do not delete if this is the current directory 
@@ -125,13 +158,13 @@ bool FileSystem::deleteFolderContents(const String &folderPath)
     return nftw(folderPath.c_str(), unlink_cb, HOOPOE_MAX_DIR_FILES_REMOVE, FTW_DEPTH | FTW_PHYS) != -1;
 }
 
-bool FileSystem::deleteFolderAndContents(const String &folderPath)
+bool FileSystem::deleteFolderAndContents(const String& folderPath)
 {
     auto unlink_cb = [](
-            const char *fpath, 
-            const struct stat *sb, 
-            int typeflag, 
-            struct FTW *ftwbuf
+            const char* fpath, 
+            const struct stat* sb, 
+            int32 typeflag, 
+            struct FTW* ftwbuf
         )
     {
         return remove(fpath);
@@ -141,7 +174,7 @@ bool FileSystem::deleteFolderAndContents(const String &folderPath)
     return nftw(folderPath.c_str(), unlink_cb, HOOPOE_MAX_DIR_FILES_REMOVE, FTW_DEPTH | FTW_PHYS) != -1;
 }
 
-bool FileSystem::isFolder(const String &path)
+bool FileSystem::isFolder(const String& path)
 {
     stat(path.c_str(), &pathStat);
 
@@ -151,12 +184,13 @@ bool FileSystem::isFolder(const String &path)
 String FileSystem::getCurrentDirectory()
 {
     char buff[PATH_MAX];
-    ssize_t len = readlink("/proc/self/exe", buff, sizeof(buff)-1);
+    ssize_t len = readlink("/proc/self/exe", buff, sizeof(buff) - 1);
     if (len != -1) {
         buff[len] = '\0';
         return String(dirname(buff));
     }
 
+    HE_CORE_ERROR("Cannot get current directory.");
     HE_EXCEPT(Exception::ERR_ITEM_NOT_FOUND, "Cannot get current directory", "FileSystem::getCurrentDirectory()");
 }
 
