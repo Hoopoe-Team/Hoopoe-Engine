@@ -42,18 +42,20 @@ public:
     // Files
     static DataStreamPtr openFileStream(const String& path, std::ios::openmode mode, const String& name = "");
     
-    static bool createFile(const String& fileName);   
-    static bool deleteFile(const String& fileName);
+    static bool createFile(const String& path);   
+    static bool deleteFile(const String& path);
     static bool moveFile(const String& oldPath, const String& newPath);
     static bool isFile(const String& path);
-    static size_t getFileSize(const String &path);
+    static size_t getFileSize(const String& path);
+    static String syncReadFile(const String& path);
+    static String asyncReadFile(const String& path);
 
     // Folders
     static bool isAbsolutePath(const String& path);
     static bool createFolder(const String& path);
-    static bool deleteEmptyFolder(const String& folderPath);
-    static bool deleteFolderContents(const String& folderPath);
-    static bool deleteFolderAndContents(const String& folderPath);
+    static bool deleteEmptyFolder(const String& path);
+    static bool deleteFolderContents(const String& path);
+    static bool deleteFolderAndContents(const String& path);
     static bool isFolder(const String& path);
     static String catPath(const String& basePath, const String& subPath);
     static String getFullPath(const String& path);

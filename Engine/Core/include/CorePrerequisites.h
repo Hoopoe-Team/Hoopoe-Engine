@@ -21,6 +21,11 @@
 #ifndef __HOOPOE_ENGINE_CORE_COREPREREQUISITES_H__
 #define __HOOPOE_ENGINE_CORE_COREPREREQUISITES_H__
 
+#define HE_ASYNC            0
+#define HE_DEBUG_MODE       1
+#define HE_ASSERT_MODE      1
+#define HE_BENCHMARK_MODE   1
+
 namespace Hoopoe
 {
 

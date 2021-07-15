@@ -52,15 +52,27 @@ private:
 
 } // Hoopoe
 
-#define HE_CORE_TRACE(...) Hoopoe::LogManager::GetCoreLogger()->trace(__VA_ARGS__)
-#define HE_CORE_INFO(...) Hoopoe::LogManager::GetCoreLogger()->info(__VA_ARGS__)
-#define HE_CORE_WARN(...) Hoopoe::LogManager::GetCoreLogger()->warn(__VA_ARGS__)
+#if HE_DEBUG_MODE == 1
+    #define HE_CORE_TRACE(...) Hoopoe::LogManager::GetCoreLogger()->trace(__VA_ARGS__)
+    #define HE_CORE_INFO(...) Hoopoe::LogManager::GetCoreLogger()->info(__VA_ARGS__)
+    #define HE_CORE_WARN(...) Hoopoe::LogManager::GetCoreLogger()->warn(__VA_ARGS__)
+
+    #define HE_CLIENT_TRACE(...) Hoopoe::LogManager::GetClientLogger()->trace(__VA_ARGS__)
+    #define HE_CLIENT_INFO(...) Hoopoe::LogManager::GetClientLogger()->info(__VA_ARGS__)
+    #define HE_CLIENT_WARN(...) Hoopoe::LogManager::GetClientLogger()->warn(__VA_ARGS__)
+#else
+    #define HE_CORE_TRACE(...)
+    #define HE_CORE_INFO(...)
+    #define HE_CORE_WARN(...)
+
+    #define HE_CLIENT_TRACE(...)
+    #define HE_CLIENT_INFO(...)
+    #define HE_CLIENT_WARN(...)
+#endif
+
 #define HE_CORE_ERROR(...) Hoopoe::LogManager::GetCoreLogger()->error(__VA_ARGS__)
 #define HE_CORE_CRITICAL(...) Hoopoe::LogManager::GetCoreLogger()->critical(__VA_ARGS__)
 
-#define HE_CLIENT_TRACE(...) Hoopoe::LogManager::GetClientLogger()->trace(__VA_ARGS__)
-#define HE_CLIENT_INFO(...) Hoopoe::LogManager::GetClientLogger()->info(__VA_ARGS__)
-#define HE_CLIENT_WARN(...) Hoopoe::LogManager::GetClientLogger()->warn(__VA_ARGS__)
 #define HE_CLIENT_ERROR(...) Hoopoe::LogManager::GetClientLogger()->error(__VA_ARGS__)
 #define HE_CLIENT_CRITICAL(...) Hoopoe::LogManager::GetClientLogger()->critical(__VA_ARGS__)
 

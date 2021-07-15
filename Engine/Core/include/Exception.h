@@ -186,6 +186,10 @@ private:
     #define HE_EXCEPT(...) HE_EXPAND(HE_EXCEPT_CHOOSER(__VA_ARGS__, HE_EXCEPT_3, HE_EXCEPT_2)(__VA_ARGS__))
 #endif
 
-#define HE_ASSERT(exp, msg) if(!(exp)) HE_EXCEPT_2(Hoopoe::Exception::ERR_RT_ASSERTION_FAILED, (#exp " failed. " msg))
+#if HE_ASSERT_MODE == 1
+    #define HE_ASSERT(exp, msg) if(!(exp)) HE_EXCEPT_2(Hoopoe::Exception::ERR_RT_ASSERTION_FAILED, (#exp " failed. " msg))
+#else
+    #define HE_ASSERT(exp, msg)
+#endif
 
 #endif

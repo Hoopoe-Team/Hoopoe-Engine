@@ -49,13 +49,13 @@
 #elif defined(__linux) || defined(__linux__)
 
 #   define HE_IS_UNIX           1
-#   define HE_IS_LINUX     1
+#   define HE_IS_LINUX          1
 
 #elif defined(__APPLE__)
 
 #   define HE_IS_UNIX           1
-#   define HE_IS_BSD       1
-#   define HE_IS_MACOS     1
+#   define HE_IS_BSD            1
+#   define HE_IS_MACOS          1
 
 #else
 
