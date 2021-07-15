@@ -27,9 +27,9 @@ namespace Hoopoe
 
 struct stat FileSystem::pathStat;
 
-DataStreamPtr FileSystem::openFileStream(const String& fullPath, std::ios::openmode mode, const String& name)
+DataStreamPtr FileSystem::openFileStream(const String& path, std::ios::openmode mode, const String& name)
 {
-    int32 ret = stat(fullPath.c_str(), &pathStat);
+    int32 ret = stat(path.c_str(), &pathStat);
     size_t st_size = ret == 0 ? pathStat.st_size : 0;
 
     std::istream* baseStream = 0;
@@ -39,14 +39,14 @@ DataStreamPtr FileSystem::openFileStream(const String& fullPath, std::ios::openm
     if (mode &std::ios::out)
     {
         rwStream = HE_NEW_T(std::fstream);
-        rwStream->open(fullPath.c_str(), mode);
+        rwStream->open(path.c_str(), mode);
 
         baseStream = rwStream;
     }
     else
     {
         roStream = HE_NEW_T(std::ifstream);
-        roStream->open(fullPath.c_str(), mode);
+        roStream->open(path.c_str(), mode);
 
         baseStream = roStream;
     }
@@ -56,12 +56,12 @@ DataStreamPtr FileSystem::openFileStream(const String& fullPath, std::ios::openm
     {
         HE_DELETE(roStream);
         HE_DELETE(rwStream);
-        HE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, "Cannot open file: " + fullPath);
+        HE_EXCEPT(Exception::ERR_FILE_NOT_FOUND, "Cannot open file: " + path);
     }
 
     /// Construct return stream, tell it to delete on destroy
     FileStream* stream = 0;
-    const String& streamname = name.empty() ? fullPath : name;
+    const String& streamname = name.empty() ? path : name;
     if (rwStream)
     {
         // use the writeable stream
@@ -76,6 +76,22 @@ DataStreamPtr FileSystem::openFileStream(const String& fullPath, std::ios::openm
     }
 
     return DataStreamPtr(stream);
+}
+
+String FileSystem::syncReadFile(const String& path)
+{
+    DataStreamPtr stream = openFileStream(path, std::ios::in | std::ios::binary);
+    
+    return stream->getAsString();
+}
+
+String FileSystem::asyncReadFile(const String& path)
+{
+#if HE_ASYNC == 1
+    HE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "This functions has no implementation yet.");
+#else
+    syncReadFile(path);
+#endif
 }
 
 bool FileSystem::isAbsolutePath(const String& path)
@@ -96,14 +112,14 @@ String FileSystem::getFullPath(const String& path)
     return catPath(FileSystem::getCurrentDirectory(), path);
 }
 
-bool FileSystem::createFile(const String& fileName)
+bool FileSystem::createFile(const String& path)
 {
-    return creat(fileName.c_str(), S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) != -1;
+    return creat(path.c_str(), S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) != -1;
 }
 
-bool FileSystem::deleteFile(const String& fileName)
+bool FileSystem::deleteFile(const String& path)
 {
-    return remove(fileName.c_str()) != -1;
+    return remove(path.c_str()) != -1;
 }
 
 bool FileSystem::moveFile(const String& oldPath, const String& newPath)
@@ -133,12 +149,12 @@ bool FileSystem::createFolder(const String& path)
     return 0;
 }
 
-bool FileSystem::deleteEmptyFolder(const String& folderPath)
+bool FileSystem::deleteEmptyFolder(const String& path)
 {
-    return rmdir(folderPath.c_str()) != -1;
+    return rmdir(path.c_str()) != -1;
 }
 
-bool FileSystem::deleteFolderContents(const String& folderPath)
+bool FileSystem::deleteFolderContents(const String& path)
 {
     auto unlink_cb = [](
             const char* fpath, 
@@ -155,10 +171,10 @@ bool FileSystem::deleteFolderContents(const String& folderPath)
     };
 
 
-    return nftw(folderPath.c_str(), unlink_cb, HOOPOE_MAX_DIR_FILES_REMOVE, FTW_DEPTH | FTW_PHYS) != -1;
+    return nftw(path.c_str(), unlink_cb, HOOPOE_MAX_DIR_FILES_REMOVE, FTW_DEPTH | FTW_PHYS) != -1;
 }
 
-bool FileSystem::deleteFolderAndContents(const String& folderPath)
+bool FileSystem::deleteFolderAndContents(const String& path)
 {
     auto unlink_cb = [](
             const char* fpath, 
@@ -171,7 +187,7 @@ bool FileSystem::deleteFolderAndContents(const String& folderPath)
     };
 
 
-    return nftw(folderPath.c_str(), unlink_cb, HOOPOE_MAX_DIR_FILES_REMOVE, FTW_DEPTH | FTW_PHYS) != -1;
+    return nftw(path.c_str(), unlink_cb, HOOPOE_MAX_DIR_FILES_REMOVE, FTW_DEPTH | FTW_PHYS) != -1;
 }
 
 bool FileSystem::isFolder(const String& path)

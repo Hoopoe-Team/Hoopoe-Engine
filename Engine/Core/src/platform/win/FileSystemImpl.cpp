@@ -30,6 +30,16 @@ DataStreamPtr FileSystem::openFileStream(const String& fullPath, std::ios::openm
     HE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "There is no implementation under the current operating system.");
 }
 
+String FileSystem::syncReadFile(const String& path)
+{
+    HE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "There is no implementation under the current operating system.");
+}
+
+String FileSystem::asyncReadFile(const String& path)
+{
+    HE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "There is no implementation under the current operating system.");
+}
+
 bool FileSystem::isAbsolutePath(const String& path)
 {
     HE_EXCEPT(Exception::ERR_NOT_IMPLEMENTED, "There is no implementation under the current operating system.");
