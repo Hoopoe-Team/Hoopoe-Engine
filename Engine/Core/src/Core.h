@@ -27,6 +27,8 @@ extern Hoopoe::Application* Hoopoe::CreateApplication();
 
 int main(int argc, char* argv[]) 
 {
+    HE_TIMER_ON
+
     Hoopoe::ConfigFile engineCfg(Hoopoe::FileSystem::getFullPath("hoopoe.cfg"));
     Hoopoe::LogManager::Init(engineCfg);
 
