@@ -31,7 +31,6 @@
  * HE_IS_BSD            BSD UNIX any kind
  * HE_IS_LINUX          Linux
  * HE_IS_MACOS          MacOS/X
- *
  */
 #if     defined(_MSC_VER) ||    \
         defined(__WIN32) ||     \
