@@ -21,7 +21,6 @@
 #ifndef __HOOPOE_ENGINE_CORE_PLATFORM_H__
 #define __HOOPOE_ENGINE_CORE_PLATFORM_H__
 
-/***** Determine OS type *****/
 /*
  * It defines some of the following constants:
  *
