@@ -25,13 +25,13 @@
 /*
  * It defines some of the following constants:
  *
- * OS_IS_WIN32          Win32 any kind
- * OS_IS_WIN32_NT       Windows NT/XP
+ * HE_IS_WIN32          Win32 any kind
+ * HE_IS_WIN32_NT       Windows NT/XP
  *
- * OS_IS_UNIX           UNIX any kind
- * OS_IS_UNIX_BSD       BSD UNIX any kind
- * OS_IS_UNIX_LINUX     Linux
- * OS_IS_UNIX_MACOS     MacOS/X
+ * HE_IS_UNIX           UNIX any kind
+ * HE_IS_BSD            BSD UNIX any kind
+ * HE_IS_LINUX          Linux
+ * HE_IS_MACOS          MacOS/X
  *
  */
 #if     defined(_MSC_VER) ||    \
