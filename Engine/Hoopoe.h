@@ -30,6 +30,6 @@
 #include "Core/include/Application.h"
 #include "Core/include/LogManager.h"
 
-#include "Core/src/Entry.h"
+#include "Core/src/Core.h"
 
 #endif // __ENGINE_HOOPOE_H__
