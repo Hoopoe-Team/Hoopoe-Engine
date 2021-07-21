@@ -6,3 +6,4 @@ Engine/Core/test/resources/*/
 
 .vscode/
 Engine/vendor/*
+Engine/vendor/spdlog
