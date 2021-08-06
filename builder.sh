@@ -51,6 +51,7 @@ do
             ;;
         "--help" | "-h" )
             echo -e $HELP_MSG
+            exit 0
             ;;
         * )
             echo -e "${RED}Unknown option: $arg${NO_COLOR}"

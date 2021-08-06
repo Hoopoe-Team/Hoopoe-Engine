@@ -28,5 +28,6 @@
 #include "Exception.h"
 #include "SharedPtr.h"
 #include "Memory.h"
+#include "Timer.h"
 
 #endif // __HOOPOE_ENGINE_CORE_COREHEADERS_H__

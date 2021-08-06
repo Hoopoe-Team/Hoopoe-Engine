@@ -1,7 +1,6 @@
-file(GLOB TEST_UTEST_SOURCES
-    "${PROJECT_BINARY_DIR}/../Engine/UTest/test/src/*.cpp"
-)
+# he_add_test(SUITNAME RESOURCES_BOOL)
+#
+# SUITNAME - name of utest-suitname
+# RESOURCES_BOOL - if set TRUE it will copy test resources
 
-add_executable(TestUTest ${TEST_UTEST_SOURCES})
-
-target_link_libraries(TestUTest PRIVATE UTest)
+he_add_test(TestUTest FALSE)

@@ -31,3 +31,17 @@ file(GLOB ENGINE_SOURCES
 add_library(${ENGINE_PROJECT_NAME} SHARED ${ENGINE_SOURCES} ${ENGINE_PLATFORM_SOURCES})
 
 target_include_directories(${ENGINE_PROJECT_NAME} PUBLIC vendor/spdlog/include)
+
+# ------------------------- UTest ------------------------- #
+
+if(UTEST)
+    # UTest main
+    add_subdirectory(${PROJECT_SOURCE_DIR}/Engine/UTest)
+
+    # Tests
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin/utests)
+
+    add_subdirectory(${PROJECT_SOURCE_DIR}/Engine/UTest/test)
+    add_subdirectory(${PROJECT_SOURCE_DIR}/Engine/Core/test)
+    
+endif()
