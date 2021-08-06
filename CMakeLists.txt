@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 
 project(Hoopoe VERSION 0.1 LANGUAGES CXX) # ${PROJECT_NAME}
 
-include ("include.cmake")
+include("include.cmake")
 
 # Compile flags
 if(UNIX AND NOT APPLE)

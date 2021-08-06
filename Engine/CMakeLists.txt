@@ -3,32 +3,20 @@ cmake_minimum_required(VERSION 3.13)
 set(ENGINE_PROJECT_NAME HEngine)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
+# ----------------------- Resources ----------------------- #
+
 configure_file(Core/resources/hoopoe.cfg ${PROJECT_SOURCE_DIR}/bin/hoopoe.cfg COPYONLY)
 
-# Create a Engine library
-if (UNIX AND NOT APPLE)
-    file(GLOB ENGINE_PLATFORM_SOURCES
-        "Core/src/platform/linux/*.cpp"
-        "Utils/src/platform/linux/*.cpp"
-    )
-elseif(WIN32)
-    file(GLOB ENGINE_PLATFORM_SOURCES
-        "Core/src/platform/win/*.cpp"
-        "Utils/src/platform/win/*.cpp"
-    )
-elseif(APPLE)
-    file(GLOB ENGINE_PLATFORM_SOURCES
-        "Core/src/platform/mac/*.cpp"
-        "Utils/src/platform/mac/*.cpp"
-    )
-endif()
+# -------------------- Engine Library --------------------- #
 
-file(GLOB ENGINE_SOURCES
-    "Core/src/*.cpp"
-    "Utils/src/*.cpp"
-)
+add_library(${ENGINE_PROJECT_NAME} SHARED)
 
-add_library(${ENGINE_PROJECT_NAME} SHARED ${ENGINE_SOURCES} ${ENGINE_PLATFORM_SOURCES})
+he_add_engine_module(Core)
+he_add_engine_module(Utils)
+
+target_link_libraries(${ENGINE_PROJECT_NAME} PRIVATE UTest)
+
+# -------------------- Include paths ---------------------- #
 
 target_include_directories(${ENGINE_PROJECT_NAME} PUBLIC vendor/spdlog/include)
 
