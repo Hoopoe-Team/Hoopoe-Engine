@@ -110,7 +110,7 @@ else
 fi
 
 if [ ! -d $BUILD_DIR ]; then
-    sudo -u ${USERNAME} mkdir $BUILD_DIR
+    mkdir $BUILD_DIR
 fi
 
 # ----------------------------------------- #
@@ -122,7 +122,7 @@ if [ "$UTEST" = "1" ] && [ ! "$SANDBOX_ONLY" = "1" ]; then
 
     if [ -f "$BASE_DIR/Engine/Core/test/resources/res.zip" ]; then
         cd "$BASE_DIR/Engine/Core/test/resources/"
-        sudo -u ${USERNAME} unzip res.zip
+        unzip res.zip
         rm res.zip
         cd $BASE_DIR
     fi
