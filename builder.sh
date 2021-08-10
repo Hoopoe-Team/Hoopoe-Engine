@@ -1,8 +1,15 @@
 #!/bin/bash
+
+# ----------------------------------------- #
+# ---------- Creating variables ----------- #
+# ----------------------------------------- #
+
 BASE_DIR=$(dirname "$0")
 BASE_DIR="$PWD/$BASE_DIR"
 
 CONFIG_PATH="builder.config"
+RESOURCE_LIST_PATH="builder-resources.list"
+RESOURCE_NAME="res.zip"
 
 DEFAULT_BUILD_DIR="build"
 DEFAULT_UTEST=1
@@ -19,6 +26,13 @@ CLEAN=0
 WHITE='\033[0;37m'
 RED='\033[0;31m'
 NO_COLOR='\033[0m'
+
+ENGINE_ZIP_RESOURCES=()
+
+while read resource_path
+do
+    ENGINE_ZIP_RESOURCES+=(${resource_path})
+done < $RESOURCE_LIST_PATH
 
 HELP_MSG="\
 Available options:\n\
@@ -120,12 +134,15 @@ fi
 if [ "$UTEST" = "1" ] && [ ! "$SANDBOX_ONLY" = "1" ]; then
     echo -e "${WHITE}-------------- Unpacking resources ---------------${NO_COLOR}"
 
-    if [ -f "$BASE_DIR/Engine/Core/test/resources/res.zip" ]; then
-        cd "$BASE_DIR/Engine/Core/test/resources/"
-        unzip res.zip
-        rm res.zip
-        cd $BASE_DIR
-    fi
+    for current_resource in "${ENGINE_ZIP_RESOURCES[@]}"
+    do
+        if [ -f "$BASE_DIR/$current_resource/$RESOURCE_NAME" ]; then
+            cd "$BASE_DIR/$current_resource"
+            unzip $RESOURCE_NAME
+            rm $RESOURCE_NAME
+            cd $BASE_DIR
+        fi
+    done
 
     if [ "$UPDATE_TESTS" = "1" ] ; then
         rm -rf "$BUILD_DIR/../bin/utests/resources"
