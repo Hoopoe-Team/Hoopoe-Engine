@@ -1,15 +1,60 @@
 #!/bin/bash
 
 # ----------------------------------------- #
+# -------------- Functions ---------------- #
+# ----------------------------------------- #
+
+function he_valid_command() {
+    RESULT=$?
+    if [ $RESULT -eq 1 ]; then
+        exit -1
+    fi
+}
+
+# he_set_option
+# $1 - message to display                  
+# $2 - default value                       
+# $3 - sym-link   
+function he_set_option() {
+    var_link=$3
+
+    read -p "$1 [default: $2]: " $3
+    eval $var_link=\${$var_link:-$2\}
+}
+
+# he_set_optionYN - set
+# $1 - message to display                  
+# $2 - default value                       
+# $3 - sym-link                             
+function he_set_optionYN() {
+    var_link=$3
+
+    echo -n $1 
+    if [ "$2" = "1" ]; then
+        echo -n " [Y/n]: "
+    else
+        echo -n " [y/N]: "
+    fi
+
+    read yn
+    case $yn in
+        [Yy]* ) eval $var_link=1;;
+        [Nn]* ) eval $var_link=0;;
+        * ) eval $var_link=$2;;
+    esac
+}
+
+# ----------------------------------------- #
 # ---------- Creating variables ----------- #
 # ----------------------------------------- #
 
 BASE_DIR=$(dirname "$0")
 BASE_DIR="$PWD/$BASE_DIR"
 
+RESOURCE_NAME="res.zip"
 CONFIG_PATH="builder.config"
 RESOURCE_LIST_PATH="builder-resources.list"
-RESOURCE_NAME="res.zip"
+DEPENDENCIES_LIST_PATH="builder-dependencies.list"
 
 DEFAULT_BUILD_DIR="build"
 DEFAULT_UTEST=1
@@ -28,11 +73,10 @@ RED='\033[0;31m'
 NO_COLOR='\033[0m'
 
 ENGINE_ZIP_RESOURCES=()
+BUILDER_DEPENDENCIES=()
 
-while read resource_path
-do
-    ENGINE_ZIP_RESOURCES+=(${resource_path})
-done < $RESOURCE_LIST_PATH
+mapfile ENGINE_ZIP_RESOURCES < $RESOURCE_LIST_PATH; he_valid_command
+mapfile BUILDER_DEPENDENCIES < $DEPENDENCIES_LIST_PATH; he_valid_command
 
 HELP_MSG="\
 Available options:\n\
@@ -40,8 +84,10 @@ Available options:\n\
 \t${WHITE}--sandbox${NO_COLOR} or ${WHITE}-s${NO_COLOR} \tbuild sandbox only.\n\
 \t${WHITE}--update-tests${NO_COLOR} or ${WHITE}-u${NO_COLOR} \tupdate UTest resources.\n\
 \t${WHITE}--pack-resources${NO_COLOR} or ${WHITE}-p${NO_COLOR} \tpack the resources in the zip archives.\n\
-\t${WHITE}--default${NO_COLOR} or ${WHITE}-d${NO_COLOR} \tcompile with default settings.\n\
+\t${WHITE}--default${NO_COLOR} or ${WHITE}-d${NO_COLOR} \tcompile with default settings.\
 "
+
+
 # ----------------------------------------- #
 # ---------- Processing argumets ---------- #
 # ----------------------------------------- #
@@ -83,14 +129,36 @@ done
 
 echo -e "${WHITE}----------------- Hoopoe builder -----------------${NO_COLOR}"
 
+# ----------------------------------------- #
+# ------- Dependencies verification ------- #
+# ----------------------------------------- #
+
+echo -e "${WHITE}----------- Dependencies verification ------------${NO_COLOR}"
+
+
+DEPENDENCE_FLAG=0
+for current_dependence in "${BUILDER_DEPENDENCIES[@]}"
+do
+    if ! command -v $current_dependence &> /dev/null; then
+        DEPENDENCE_FLAG=1
+        echo -e -n "${RED}Missing dependency: ${current_dependence}${NO_COLOR}"
+    fi
+done
+
+if [ "$DEPENDENCE_FLAG" = "1" ]; then
+    echo ""
+    exit -1
+fi
+
 if [ ! "$PACK_RESOURCES" = "1" ]; then
     if [ ! "$DEFAULT_SETTINS" = "1" ]; then
+        echo -e "${WHITE}----------- Setting the build options ------------${NO_COLOR}"
+
         # ----------------------------------------- #
         # ----------- Default build dir ----------- #
         # ----------------------------------------- #
 
-        read -p "What directory would you like to use for the build? [default: $DEFAULT_BUILD_DIR]: " BUILD_DIR
-        BUILD_DIR=${BUILD_DIR:-$DEFAULT_BUILD_DIR}
+        he_set_option "What directory would you like to use for the build?" $DEFAULT_BUILD_DIR "BUILD_DIR"
 
         if [ ! "$BUILD_DIR" = "$DEFAULT_BUILD_DIR" ]; then
             sed -i "s/^\(DEFAULT_BUILD_DIR\s*=\s*\).*\$/\1$BUILD_DIR/" $CONFIG_PATH
@@ -101,12 +169,7 @@ if [ ! "$PACK_RESOURCES" = "1" ]; then
         # ----------------------------------------- #
 
         if [ ! "$SANDBOX_ONLY" = "1" ]; then
-            read -p "Want to compile unit-tests? [Y/n]: " yn
-            case $yn in
-                [Yy]* ) UTEST=1;;
-                [Nn]* ) UTEST=0;;
-                * ) UTEST=$DEFAULT_UTEST;;
-            esac
+            he_set_optionYN "Want to compile unit-tests?" $DEFAULT_UTEST "UTEST"
 
             if [ ! "$UTEST" = "$DEFAULT_UTEST" ]; then
                 sed -i "s/^\(DEFAULT_UTEST\s*=\s*\).*\$/\1$UTEST/" $CONFIG_PATH
@@ -116,8 +179,7 @@ if [ ! "$PACK_RESOURCES" = "1" ]; then
         # ------- Number of cores for build ------- #
         # ----------------------------------------- #
 
-        read -p "How many cores do you want to use for building? [default: $DEFAULT_CORES]: " CORES
-        CORES=${CORES:-$DEFAULT_CORES}
+        he_set_option "How many cores do you want to use for building?" $DEFAULT_CORES "CORES"
 
         if [ ! "$CORES" = "$DEFAULT_CORES" ]; then
             sed -i "s/^\(DEFAULT_CORES\s*=\s*\).*\$/\1$CORES/" $CONFIG_PATH
@@ -129,7 +191,7 @@ if [ ! "$PACK_RESOURCES" = "1" ]; then
     fi
 
     if [ ! -d $BUILD_DIR ]; then
-        mkdir $BUILD_DIR
+        mkdir $BUILD_DIR; he_valid_command
     fi
 
     # ----------------------------------------- #
@@ -142,10 +204,10 @@ if [ ! "$PACK_RESOURCES" = "1" ]; then
         for current_resource in "${ENGINE_ZIP_RESOURCES[@]}"
         do
             if [ -f "$BASE_DIR/$current_resource/$RESOURCE_NAME" ]; then
-                cd "$BASE_DIR/$current_resource"
-                unzip $RESOURCE_NAME
+                cd "$BASE_DIR/$current_resource"; he_valid_command
+                unzip $RESOURCE_NAME; he_valid_command
                 rm $RESOURCE_NAME
-                cd $BASE_DIR
+                cd $BASE_DIR; he_valid_command
             fi
         done
 
@@ -185,11 +247,12 @@ else
 
     for current_resource in "${ENGINE_ZIP_RESOURCES[@]}"
     do
+        # very dangerous
         if [ ! -f "$BASE_DIR/$current_resource/$RESOURCE_NAME" ]; then
-            cd "$BASE_DIR/$current_resource"
-            zip -r $RESOURCE_NAME */
-            rm -r */
-            cd $BASE_DIR
+            cd "$BASE_DIR/$current_resource"; he_valid_command
+            zip -r $RESOURCE_NAME */; he_valid_command
+            rm -r */ 
+            cd $BASE_DIR; he_valid_command
             echo -e "${WHITE}----------------- Pack complete! -----------------${NO_COLOR}"
         else
             echo -e "${WHITE}Resource $BASE_DIR/$current_resource/$RESOURCE_NAME is already is packed.${NO_COLOR}"
