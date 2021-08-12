@@ -44,6 +44,59 @@ function he_set_optionYN() {
     esac
 }
 
+function he_save_options() {
+    vars_link=$1
+    values_link=$2
+
+    read -a vars_to_set <<< "$vars_link"
+    read -a default_values <<< "$values_link"
+
+    if [ ${#vars_to_set[@]} -eq ${#default_values[@]} ]; then
+        i=0
+        while [ $i -lt ${#vars_to_set[@]} ]
+        do
+            var_link="${vars_to_set[$i]}"
+            eval var=\$$var_link
+
+            if [ ! "$var" = "${default_values[$i]}" ]; then
+                sed -i "s/^\(DEFAULT_$var_link\s*=\s*\).*\$/\1$var/" $3
+            fi
+
+            (( i++ ))
+        done
+    fi
+}
+
+function he_set_save_options() {
+    vars_link=$1
+    values_link=$2
+
+    read -a vars_to_set <<< "$vars_link"
+    read -a default_values <<< "$values_link"
+
+    if [ ${#vars_to_set[@]} -eq ${#default_values[@]} ]; then
+        i=0
+        while [ $i -lt ${#vars_to_set[@]} ]
+        do
+            var_link="${vars_to_set[$i]}"
+            eval var=\$$var_link
+
+            if [ ! "$var" = "${default_values[$i]}" ]; then
+                he_set_optionYN "Would you like to save the current settings?" $4 $3
+                eval save_settings_flag=\$$3
+
+                if [ "$save_settings_flag" = "1" ]; then
+                    he_save_options "$1 $3" "$2 $4" $5
+                fi
+
+                break
+            fi
+
+            (( i++ ))
+        done
+    fi
+}
+
 # ----------------------------------------- #
 # ---------- Creating variables ----------- #
 # ----------------------------------------- #
@@ -59,6 +112,7 @@ DEPENDENCIES_LIST_PATH="builder-dependencies.list"
 DEFAULT_BUILD_DIR="build"
 DEFAULT_UTEST=1
 DEFAULT_CORES=4
+DEFAULT_SAVE_OPTION=1
 
 ENGINE_ONLY=0
 SANDBOX_ONLY=0
@@ -152,38 +206,20 @@ fi
 
 if [ ! "$PACK_RESOURCES" = "1" ]; then
     if [ ! "$DEFAULT_SETTINS" = "1" ]; then
+        # ----------------------------------------- #
+        # ------- Setting the build options ------- #
+        # ----------------------------------------- #
+        
         echo -e "${WHITE}----------- Setting the build options ------------${NO_COLOR}"
-
-        # ----------------------------------------- #
-        # ----------- Default build dir ----------- #
-        # ----------------------------------------- #
 
         he_set_option "What directory would you like to use for the build?" $DEFAULT_BUILD_DIR "BUILD_DIR"
 
-        if [ ! "$BUILD_DIR" = "$DEFAULT_BUILD_DIR" ]; then
-            sed -i "s/^\(DEFAULT_BUILD_DIR\s*=\s*\).*\$/\1$BUILD_DIR/" $CONFIG_PATH
-        fi
-
-        # ----------------------------------------- #
-        # ----------------- UTests ---------------- #
-        # ----------------------------------------- #
-
         if [ ! "$SANDBOX_ONLY" = "1" ]; then
             he_set_optionYN "Want to compile unit-tests?" $DEFAULT_UTEST "UTEST"
-
-            if [ ! "$UTEST" = "$DEFAULT_UTEST" ]; then
-                sed -i "s/^\(DEFAULT_UTEST\s*=\s*\).*\$/\1$UTEST/" $CONFIG_PATH
-            fi
         fi
-        # ----------------------------------------- #
-        # ------- Number of cores for build ------- #
-        # ----------------------------------------- #
 
         he_set_option "How many cores do you want to use for building?" $DEFAULT_CORES "CORES"
-
-        if [ ! "$CORES" = "$DEFAULT_CORES" ]; then
-            sed -i "s/^\(DEFAULT_CORES\s*=\s*\).*\$/\1$CORES/" $CONFIG_PATH
-        fi
+        he_set_save_options "BUILD_DIR UTEST CORES" "$DEFAULT_BUILD_DIR $DEFAULT_UTEST $DEFAULT_CORES" "SAVE_OPTION" $DEFAULT_SAVE_OPTION $CONFIG_PATH
     else
         BUILD_DIR="$BASE_DIR/$DEFAULT_BUILD_DIR"
         UTEST=$DEFAULT_UTEST
