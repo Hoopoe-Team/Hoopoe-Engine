@@ -17,7 +17,7 @@ Hoopoe engine is designed to create a simple simulated world.
 <a name="building-linux-requirements"><h4>Requirements</h4></a>
 
 ```no-highlight
-sudo apt-get install build-essential cmake unzip
+sudo apt-get install build-essential cmake unzip zip
 ```
 <a name="building-linux-compiling"><h4>Compiling</h4></a>
 
