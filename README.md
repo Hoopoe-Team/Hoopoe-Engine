@@ -2,7 +2,7 @@
 ##### <h3>Content</h3>
  - [Introduction](#introduction)<br/>
  - [Building](#building)
-      - [On Linux](#building-linux)
+      - [On GNU/Linux](#building-linux)
            - [Requirements](#building-linux-requirements)
            - [Compiling](#building-linux-compiling)
            - [Builder flags](#building-linux-builder-flags)
@@ -13,7 +13,7 @@
 Hoopoe engine is designed to create a simple simulated world.
 
 <a name="building"><h1>Building</h1></a>
-<a name="building-linux"><h3>On Linux</h3></a>
+<a name="building-linux"><h3>On GNU/Linux</h3></a>
 <a name="building-linux-requirements"><h4>Requirements</h4></a>
 
 ```no-highlight
