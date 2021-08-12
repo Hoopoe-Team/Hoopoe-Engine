@@ -28,6 +28,7 @@ bash builder.sh
 <code>--engine</code> or <code>-e</code> - build engine only.<br/>
 <code>--sandbox</code> or <code>-s</code> - build sandbox only.<br/>
 <code>--update-tests</code> or <code>-u</code> - update UTest resources.<br/>
+<code>--pack-resources</code> or <code>-p</code> - pack the resources in the zip archives.<br/>
 <code>--default</code> or <code>-d</code> - build with default settings.<br/>
 
 <a name="building-cmake-flags"><h4>CMake flags</h4></a>
